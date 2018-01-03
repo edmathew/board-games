@@ -48,7 +48,7 @@ public class Minesweeper {
 
 		} catch (IOException e) {
 			System.out.println("Erro de leitura no ficheiro." +
-			"\nO jogo vai continuar com as definições standard.\n");
+			"\nO jogo vai continuar com as defini  es standard.\n");
 
 			this.tabuleiro = new char [9][9];
 			preencher(10);
@@ -58,7 +58,7 @@ public class Minesweeper {
 
 	/**
 	 * Contrutor de um tabuleiro Standard
-	 * 9*9 e 10 minas (Disposição Aleatoria)
+	 * 9*9 e 10 minas (Disposi  o Aleatoria)
 	 */
 	public Minesweeper(){
 		this.tabuleiro = new char [9][9];
@@ -100,7 +100,7 @@ public class Minesweeper {
 				tabuleiro[i][j]= OCULTO ;
 			}
 		}
-		// Preencher o número adequado de bombas 
+		// Preencher o n mero adequado de bombas 
 		preencherBombas(n_bombas);
 
 		assert cumpreInvariante();
@@ -108,8 +108,8 @@ public class Minesweeper {
 	}
 
 	/**
-	 * Preenche o tabuleiro com o número de bombas dado como argumento
-	 * em posiçoes aleatorias
+	 * Preenche o tabuleiro com o n mero de bombas dado como argumento
+	 * em posi oes aleatorias
 	 * 
 	 */
 	private void preencherBombas(int n_bombas) {
@@ -188,8 +188,8 @@ public class Minesweeper {
 	}
 
 	/**
-	 * Pede uma jogada ao utilizador e verifica se é uma colocação de bandeira,
-	 * um pedido de gravação de jogo ou uma jogada normal.
+	 * Pede uma jogada ao utilizador e verifica se   uma coloca  o de bandeira,
+	 * um pedido de grava  o de jogo ou uma jogada normal.
 	 * 
 	 * @post cumpreInvariante()
 	 */
@@ -207,7 +207,7 @@ public class Minesweeper {
 			if(aux.charAt(0)=='#'){
 				gravaJogo();
 			}else if(aux.length() <2 || aux.equals("")){
-				System.out.println("Jogada Inválida");
+				System.out.println("Jogada Inv lida");
 				coord = null;
 
 			}else if(aux.charAt(0)=='+'){
@@ -231,7 +231,7 @@ public class Minesweeper {
 				coord = new Coordenada(l,c);
 
 				if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
-					System.out.println("Jogada Inválida");
+					System.out.println("Jogada Inv lida");
 				}else{
 					contadorBandeiras ++;
 					selecciona(l,c,true);
@@ -256,14 +256,14 @@ public class Minesweeper {
 				coord = new Coordenada(l ,c);
 
 				if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
-					System.out.println("Jogada Inválida");
+					System.out.println("Jogada Inv lida");
 				}else if(tabuleiro[l][c]==BANDEIRA || 
 						tabuleiro[l][c] == BANDEIRA_E_BOMBA){
 
 					char escolha;
 					do{
 						System.out.print("Quer mesmo jogar na coordenada? (Y/N) "
-								+((char)((int)l+ 'A'))+" "+(c+1)+" (está assinalada com uma bandeira)");
+								+((char)((int)l+ 'A'))+" "+(c+1)+" (est  assinalada com uma bandeira)");
 						escolha = teclado.next().toUpperCase().charAt(0);
 					}while(escolha != 'N' && escolha != 'Y');
 
@@ -284,7 +284,7 @@ public class Minesweeper {
 	}	
 
 	/**
-	 *Selecciona uma posição com uma bandeira
+	 *Selecciona uma posi  o com uma bandeira
 	 *@pre dentroDoTabuleiro(new Coordenada(x,y)) && coordenadaValida(new Coordenada(x,y) 
 	 *@post cumpreInvariante();
 	 */
@@ -307,7 +307,7 @@ public class Minesweeper {
 	}
 
 	/**
-	 * Verifica se a coordenada dada está dentro dos limites
+	 * Verifica se a coordenada dada est  dentro dos limites
 	 * do tabuleiro em uso
 	 * 
 	 * @pre c!=null
@@ -324,7 +324,7 @@ public class Minesweeper {
 
 
 	/**
-	 * Verifica se a coordenada é valida para ser jogada
+	 * Verifica se a coordenada   valida para ser jogada
 	 * 
 	 */
 	private boolean coordenadaValida(Coordenada coordenada){
@@ -407,7 +407,7 @@ public class Minesweeper {
 	}
 
 	/**
-	 * Verifica se o jogo já acabou
+	 * Verifica se o jogo j  acabou
 	 * 
 	 */
 	public boolean jogoTerminado(Coordenada coordenada) {
@@ -422,7 +422,7 @@ public class Minesweeper {
 
 
 	/**
-	 * Verifica se ainda ha posiçoes por revelar
+	 * Verifica se ainda ha posi oes por revelar
 	 * @return
 	 */
 	public boolean jogoContinua(){
@@ -437,7 +437,7 @@ public class Minesweeper {
 	}
 
 	/**
-	 * Grava as posiçoes das bombas para retomar
+	 * Grava as posi oes das bombas para retomar
 	 * o mesmo tabuleiro mais tarde
 	 * (Foi adoptada esta estrategia com base no que nos foi transmitido
 	 * pelo professor Abilio.)
@@ -552,7 +552,7 @@ public class Minesweeper {
 				"|...00.........00..00..00......0000..000000..000000...|\n"+
 				"|___00_________00__00__00_______000__000000__000000___|\n"+
 				":::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"+
-				"»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»");
+				"                                                       ");
 
 
 
@@ -564,7 +564,7 @@ public class Minesweeper {
 			System.out.println("Main Menu:" +
 					"\n1 - Usar tabuleiro Standard (9x9 com 10 minas)" +
 					"\n2 - Personalizar o tabuleiro" +
-					"\n3 - Carregar um ficheiro com a disposição do tabuleiro" +
+					"\n3 - Carregar um ficheiro com a disposi  o do tabuleiro" +
 			"\n4 - Sair");
 
 			escolha = teclado.nextInt();
@@ -581,7 +581,7 @@ public class Minesweeper {
 				System.out.print("Largura? ");
 				int y = teclado.nextInt();
 
-				System.out.print("Nº de bombas? ");
+				System.out.print("N  de bombas? ");
 				int n_bombas = teclado.nextInt();
 
 				jogo = new Minesweeper(x,y,n_bombas);
@@ -595,7 +595,7 @@ public class Minesweeper {
 				System.exit(0);
 				break;
 			default:
-				System.out.println("Opção Inválida.");
+				System.out.println("Op  o Inv lida.");
 			break;
 			}
 

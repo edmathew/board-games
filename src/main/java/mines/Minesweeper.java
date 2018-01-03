@@ -110,7 +110,7 @@ public class Minesweeper {
 	}
 
 	// --------------------------------------------
-	// Métodos Privados
+	// Mtodos Privados
 	// --------------------------------------------
 
 	private void fill() {

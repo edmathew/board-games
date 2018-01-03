@@ -38,7 +38,7 @@ public class TicTacToe {
 
 	public void play(Coordinate c) throws IllegalMove {
 		if (!isLegal(c))
-			throw new IllegalMove("Posição Ocupada");
+			throw new IllegalMove("Posio Ocupada");
 
 		board[c.getLine()][c.getColumn()] = next;
 		changePlayer();
@@ -86,7 +86,7 @@ public class TicTacToe {
 	}
 
 	// ----------------------------------------------------------
-	// Métodos Privados
+	// M todos Privados
 	// ----------------------------------------------------------
 
 
@@ -95,7 +95,7 @@ public class TicTacToe {
 			throw new IllegalArgumentException();
 
 		if (!c.isValidFor(board))
-			throw new IllegalMove("Coordenada Inválida");
+			throw new IllegalMove("Coordenada Inv lida");
 
 		return board[c.getLine()][c.getColumn()] == EMPTY;
 	}

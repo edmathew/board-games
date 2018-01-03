@@ -15,7 +15,7 @@ public class Coordinate {
 	}
 
 	/**
-	 * Construtor que recebe uma String com uma coordenada relativa à grelha do
+	 * Construtor que recebe uma String com uma coordenada relativa   grelha do
 	 * tabuleiro.
 	 * 
 	 * @pre coordinateText != null && coordinateText.length()>0
@@ -46,7 +46,7 @@ public class Coordinate {
 	}
 
 	/**
-	 * Verifica se a String coordinateAsString contem uma coordenada Válida
+	 * Verifica se a String coordinateAsString contem uma coordenada V lida
 	 * 
 	 * @pre coordinateAsString != null && coordinateAsString.length() > 0
 	 */
@@ -73,7 +73,7 @@ public class Coordinate {
 	}
 
 	/**
-	 * Verifica se esta coordenada é Válida para um tabuleiro passado por
+	 * Verifica se esta coordenada   V lida para um tabuleiro passado por
 	 * argumento
 	 */
 	public boolean isValidFor(char[][] board) {
@@ -83,15 +83,15 @@ public class Coordinate {
 	}
 
 	/**
-	 * Devolve uma representação Textual da Coordenada no formato (line, column)
+	 * Devolve uma representa  o Textual da Coordenada no formato (line, column)
 	 */
 	public String toString() {
 		return "(" + (char) ('A' + line) + "," + (column + 1) + ")";
 	}
 
 	/**
-	 * Verifica se a coordenada é igual a outra passada por argumento.
-	 * Entende-se que 2 coordenadas são iguais se os atributos line e column
+	 * Verifica se a coordenada   igual a outra passada por argumento.
+	 * Entende-se que 2 coordenadas s o iguais se os atributos line e column
 	 * forem iguais.
 	 */
 	public boolean equals(Coordinate c) {
