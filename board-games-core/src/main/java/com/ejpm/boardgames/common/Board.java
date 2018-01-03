@@ -1,7 +1,7 @@
 package com.ejpm.boardgames.common;
 
 /**
- *
+ * 
  * @author ejpmateus
  */
 public class Board {
@@ -21,7 +21,7 @@ public class Board {
         initBoard();
     }
 
-    public final void initBoard() {
+    private void initBoard() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 board[i][j] = EMPTY_CELL;

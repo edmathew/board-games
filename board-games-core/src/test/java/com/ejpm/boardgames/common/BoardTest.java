@@ -38,5 +38,10 @@ public class BoardTest {
             }
         }
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidCoordinateThrowsException(){
+        board.getPosition(-1, -1);
+    }
 
 }
