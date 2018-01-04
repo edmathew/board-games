@@ -11,7 +11,7 @@ public class Board {
     private final int width;
     private final int height;
 
-    private final char[][] board;
+    protected char[][] board;
 
     public Board(final int width, final int height) {
         this.width = width;
