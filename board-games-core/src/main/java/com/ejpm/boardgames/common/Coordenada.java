@@ -1,4 +1,4 @@
-package olfmines;
+package com.ejpm.boardgames.common;
 import java.io.PrintWriter;
 
 public class Coordenada {

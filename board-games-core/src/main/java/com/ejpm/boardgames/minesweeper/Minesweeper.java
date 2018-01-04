@@ -1,6 +1,8 @@
-package olfmines;
+package com.ejpm.boardgames.minesweeper;
 import java.io.*;
 import java.util.*;
+import com.ejpm.boardgames.common.Coordenada;
+import olfmines.Jogador;
 
 
 public class Minesweeper {
