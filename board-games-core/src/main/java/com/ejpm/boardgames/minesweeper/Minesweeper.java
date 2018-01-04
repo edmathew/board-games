@@ -4,18 +4,27 @@ import java.util.*;
 import com.ejpm.boardgames.common.Coordenada;
 import olfmines.Jogador;
 
-
 public class Minesweeper {
-
+    
+    private static final int DEFAULT_DIMENTION  = 9;
+    private static final int DEFAULT_MINES      = 10;
+    
 	public static final char OCULTO = '-';
 	public static final char BANDEIRA = 'F';
 	public static final char BANDEIRA_E_BOMBA = 'B';
 	public static final char BOMBA = '*';
 
+        protected MinesweeperBoard board;
 	protected char[][] tabuleiro = null;
-	protected int contadorBandeiras=0;
+ 	protected int contadorBandeiras=0;
 
 
+	public Minesweeper(){
+            board = new MinesweeperBoard(DEFAULT_DIMENTION, DEFAULT_DIMENTION, DEFAULT_MINES);
+		this.tabuleiro = new char [9][9];
+		preencher(10);
+	}
+        
 	/**
 	 * Contrutor de um tabuleiro tendo por base
 	 * um ficheiro
@@ -58,14 +67,7 @@ public class Minesweeper {
 	}
 
 
-	/**
-	 * Contrutor de um tabuleiro Standard
-	 * 9*9 e 10 minas (Disposi  o Aleatoria)
-	 */
-	public Minesweeper(){
-		this.tabuleiro = new char [9][9];
-		preencher(10);
-	}
+
 
 
 	/**
