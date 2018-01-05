@@ -70,11 +70,7 @@ public class Minesweeper {
 
 
 		} catch (IOException e) {
-			System.out.println("Erro de leitura no ficheiro." +
-			"\nO jogo vai continuar com as defini  es standard.\n");
-
-			this.tabuleiro = new char [9][9];
-			preencher(10);
+                    throw new RuntimeException("Outstanding error");
 		}
 	}
 
@@ -82,48 +78,8 @@ public class Minesweeper {
 
 
 
-	/**
-	 * Prenche o tabuleiro com nbombas e o restante com OCULTO
-	 * 
-	 * @pre n_bombas >=0
-	 * @post cumpreInvariante();
-	 * 
-	 */
-	private void preencher(int n_bombas) {
-		assert n_bombas >=0;
 
-		// "Limpar" o tabuleiro,
-		for(int i=0; i<tabuleiro.length;i++){
-			for(int j=0; j<tabuleiro[i].length;j++){
-				tabuleiro[i][j]= OCULTO ;
-			}
-		}
-		// Preencher o n mero adequado de bombas 
-		preencherBombas(n_bombas);
-
-		assert cumpreInvariante();
-
-	}
-
-	/**
-	 * Preenche o tabuleiro com o n mero de bombas dado como argumento
-	 * em posi oes aleatorias
-	 * 
-	 */
-	private void preencherBombas(int n_bombas) {
-		assert n_bombas >=0;
-		Random gerador = new Random();
-
-		for(int i=0;i<n_bombas;i++){
-			int x = gerador.nextInt(tabuleiro.length);
-			int y = gerador.nextInt(tabuleiro[0].length); 
-			if (tabuleiro[x][y]==BOMBA){
-				i--;
-			}else{
-				tabuleiro[x][y] = BOMBA;
-			}
-		}
-	}
+ 
 
 
 	void mostrarTabuleiro() {

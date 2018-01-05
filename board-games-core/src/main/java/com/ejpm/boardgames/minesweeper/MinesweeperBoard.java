@@ -25,7 +25,8 @@ public class MinesweeperBoard extends Board {
         final Random r = new Random();
 
         for (int i = 0; i < bombQty; i++) {
-            int x, y;
+            int x, 
+                y;
             do {
                 x = r.nextInt(getWidth());
                 y = r.nextInt(getHeight());
