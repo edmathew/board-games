@@ -1,6 +1,5 @@
 package com.ejpm.boardgames.minesweeper;
 
-import com.ejpm.boardgames.common.Board;
 import org.junit.Before;
 import org.junit.Test;
 

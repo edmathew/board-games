@@ -240,7 +240,6 @@ public class Minesweeper {
 	/**
 	 *Selecciona uma posi  o com uma bandeira
 	 *@pre dentroDoTabuleiro(new Coordenada(x,y)) && coordenadaValida(new Coordenada(x,y) 
-	 *@post cumpreInvariante();
 	 */
 	public void selecciona(int x, int y, boolean bandeira){
 		assert dentroDoTabuleiro(new Coordenada(x,y));
@@ -256,7 +255,7 @@ public class Minesweeper {
 			tabuleiro[x][y]=BOMBA;
 		}
 
-		assert cumpreInvariante();
+
 		mostrarTabuleiro();
 	}
 
@@ -295,13 +294,10 @@ public class Minesweeper {
 
 	/**
 	 * 
-	 * @pre cumpreInvariante() && dentroDoTabuleiro(coord)
-	 * @post cumpreInvariante()
 	 */
 	public void revela(Coordenada coord) {
 
 		assert dentroDoTabuleiro(coord);
-		assert cumpreInvariante();
 		int n_bombas = nBombas(coord.getLinha(), coord.getColuna());
 
 
@@ -318,7 +314,6 @@ public class Minesweeper {
 			}
 
 		}
-		assert cumpreInvariante();	
 	}
 
 
@@ -331,8 +326,6 @@ public class Minesweeper {
 	 */
 	public int nBombas(int x, int y) {
 		Coordenada coordenada_dada = new Coordenada (x,y);
-		assert tabuleiro[x][y] != BOMBA;
-		assert dentroDoTabuleiro(coordenada_dada);
 
 		int n_bombas = 0;
 
@@ -347,7 +340,6 @@ public class Minesweeper {
 			}
 		}
 
-		assert cumpreInvariante();
 		return n_bombas;
 
 	}

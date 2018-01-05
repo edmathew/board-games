@@ -36,6 +36,24 @@ public class MinesweeperBoard extends Board {
         }
 
     }
+    
+    
+    /**
+     * Get the quantity of bombs in the board
+     * @return 
+     */
+    public int getCurrentBombQty() {
+        int bombCount = 0;
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if (cellIsBomb(i, j)) {
+                    bombCount++;
+                }
+            }
+        }
+
+        return bombCount;
+    }
 
     /*
     * Temporary for main class refactor
@@ -45,11 +63,15 @@ public class MinesweeperBoard extends Board {
         return board;
     }
 
+    public int getBombQty() {
+        return bombQty;
+    }
+
     public boolean cellIsBomb(final int x, final int y) {
         return getPosition(x, y) == BOMB;
     }
-    
-    private void setBomb(final int x, final int y){
+
+    private void setBomb(final int x, final int y) {
         setPosition(x, y, BOMB);
     }
 
