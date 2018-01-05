@@ -232,7 +232,6 @@ public class Minesweeper {
 			}
 		}while(coord==null || !dentroDoTabuleiro(coord)||!coordenadaValida(coord));
 
-		assert cumpreInvariante();
 		return coord;
 
 	}	
@@ -428,58 +427,10 @@ public class Minesweeper {
 
 
 
-	public boolean cumpreInvariante() {
-		if(tabuleiro == null){ 
-			return false;
-		}else if(procurarNull()){
-			return false;
-		}else if (detectarErros()){
-			return false;
-		}else if (!linhasPerfeitas()){
-			return false;
-		}else{
-			return true;
-		}
-	}
 
-
-	public boolean procurarNull(){
-		for(int i = 0; i < tabuleiro.length; i++){
-			if(tabuleiro[i]== null)
-				return true;
-		}
-		return false;
-	}
-
-
-	public boolean detectarErros(){
-		assert tabuleiro != null;
-
-		for(int i=0; i<tabuleiro.length; i++){
-			for(int j = 0; j<tabuleiro[i].length; j++){
-				if(tabuleiro[i][j] == OCULTO || tabuleiro[i][j] == BANDEIRA ||
-						tabuleiro[i][j] == BANDEIRA_E_BOMBA || tabuleiro[i][j] == BOMBA){
-
-				}else if(tabuleiro[i][j]< (char)48 || tabuleiro[i][j] > (char)56){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-
-	public boolean linhasPerfeitas(){
-		int n_colunas = tabuleiro[0].length;
-
-		for(int i = 0; i < tabuleiro.length;i++){
-			if(tabuleiro[i].length != n_colunas)
-				return false;
-		}
-
-		return true;
-	}
-
+ 
+ 
+ 
 
 
 	//Programa MinesSweeper
