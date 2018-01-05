@@ -5,9 +5,26 @@ import com.ejpm.boardgames.common.Coordenada;
 import olfmines.Jogador;
 
 public class Minesweeper {
+
+    private static final int DEFAULT_DIMENTION = 9;
+    private static final int DEFAULT_MINES = 10;
     
-    private static final int DEFAULT_DIMENTION  = 9;
-    private static final int DEFAULT_MINES      = 10;
+    public Minesweeper() {
+        this(DEFAULT_DIMENTION, DEFAULT_DIMENTION, DEFAULT_MINES);
+    }
+
+    /**
+     *
+     * @param boardWidth The board width
+     * @param boardHeight The board height
+     * @param minesQtd The quantity of bombs to be in the board.
+     */
+    public Minesweeper(final int boardWidth, final int boardHeight, final int minesQtd) {
+        board = new MinesweeperBoard(boardWidth, boardHeight, minesQtd);
+        board.spreadBombs();
+        tabuleiro = board.getTabuleiro();
+    }
+    
     
 	public static final char OCULTO = '-';
 	public static final char BANDEIRA = 'F';
@@ -19,12 +36,7 @@ public class Minesweeper {
  	protected int contadorBandeiras=0;
 
 
-	public Minesweeper(){
-            board = new MinesweeperBoard(DEFAULT_DIMENTION, DEFAULT_DIMENTION, DEFAULT_MINES);
-		this.tabuleiro = new char [9][9];
-		preencher(10);
-	}
-        
+ 
 	/**
 	 * Contrutor de um tabuleiro tendo por base
 	 * um ficheiro
@@ -68,24 +80,6 @@ public class Minesweeper {
 
 
 
-
-
-	/**
-	 * Contrutor de um tabuleiro com parametros
-	 * definidos pelo utilizador
-	 * 
-	 * @pre tamanho_x > 0 && tamanho_y > 0 &&  
-	 * numero_de_minas <= (tamanho_x * tamanho_y)
-	 */
-	public Minesweeper(int tamanho_x, int tamanho_y, int numero_de_minas){
-		assert tamanho_x > 0;
-		assert tamanho_y > 0;
-		assert numero_de_minas <= (tamanho_x * tamanho_y);
-
-
-		this.tabuleiro = new char [tamanho_x][tamanho_y];
-		preencher(numero_de_minas);
-	}
 
 
 	/**

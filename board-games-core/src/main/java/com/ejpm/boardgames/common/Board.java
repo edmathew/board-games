@@ -6,7 +6,7 @@ package com.ejpm.boardgames.common;
  */
 public class Board {
 
-    public static final char EMPTY_CELL = ' ';
+    public static final char EMPTY_CELL = '-';
 
     private final int width;
     private final int height;
@@ -43,6 +43,10 @@ public class Board {
 
     public int getHeight() {
         return height;
+    }
+    
+    protected void setPosition(final int x, final int y, final char value){
+        board[x][y] = value;
     }
     
 }

@@ -23,7 +23,7 @@ public class MinesweeperTest {
         Minesweeper mines = new Minesweeper();
         assertThat(mines.tabuleiro.length, is(equalTo(9)));
         assertThat(mines.board.getWidth(), is(equalTo(9)));
-        assertThat(mines.board.getHeight(), is(equalTo(9)));
+        assertThat(mines.board.getHeight(),is(equalTo(9)));
     }
 
 }
