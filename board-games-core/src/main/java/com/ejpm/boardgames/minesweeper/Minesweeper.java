@@ -26,6 +26,12 @@ public class Minesweeper {
     }
     
     
+    public Minesweeper(final MinesweeperBoard board) {
+        this.board = board;
+        tabuleiro = board.getTabuleiro();
+    }
+    
+    
 	public static final char OCULTO = '-';
 	public static final char BANDEIRA = 'F';
 	public static final char BANDEIRA_E_BOMBA = 'B';

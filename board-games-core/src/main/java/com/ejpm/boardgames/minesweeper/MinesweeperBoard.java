@@ -12,9 +12,9 @@ public class MinesweeperBoard extends Board {
     private static final char BOMB = '*';
 
     private final int bombQty;
-    private int flagsCount = 0;
+    private int flagsCount;
 
-    public MinesweeperBoard(int width, int height, int bombQty) {
+    public MinesweeperBoard(final int width, final int height, final int bombQty) {
         super(width, height);
         this.bombQty = bombQty;
     }
