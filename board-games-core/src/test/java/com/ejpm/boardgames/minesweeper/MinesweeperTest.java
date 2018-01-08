@@ -12,12 +12,22 @@ import static org.hamcrest.core.IsEqual.equalTo;
  * @author edgar.mateus
  */
 public class MinesweeperTest {
+    
+    private class TestableMinesweeper extends Minesweeper {
+
+        private final static String A1_PLAY = "A1";
+        
+        @Override
+        public String getMoveFromKeyboard() {
+            return A1_PLAY;
+        }
+    }
 
     private Minesweeper mines;
     
     @Before
     public void setUp() {
-        mines = new Minesweeper();
+        mines = new TestableMinesweeper();
     }
 
     @Test
@@ -40,4 +50,12 @@ public class MinesweeperTest {
         
         assertThat(bombCount, is(equalTo(10)));
     }
+    
+    
+    @Test
+    public void askForShotReturnsACoordinate(){
+        mines.pedeJogada();
+    }
+    
+    
 }

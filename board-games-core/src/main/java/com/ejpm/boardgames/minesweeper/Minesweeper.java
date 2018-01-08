@@ -109,7 +109,7 @@ public class Minesweeper {
 			}System.out.println();
 			y++;
 		}
-		System.out.println("Bandeiras Colocadas: "+this.contadorBandeiras);
+		System.out.println("Bandeiras Colocadas: "+ board.getFlagsCount());
 
 	}
 
@@ -140,6 +140,11 @@ public class Minesweeper {
 			y++;
 		}
 	}
+        
+    public String getMoveFromKeyboard() {
+        Scanner keyboard = new Scanner(System.in);
+        return keyboard.nextLine().trim();
+    }
 
 	/**
 	 * Pede uma jogada ao utilizador e verifica se   uma coloca  o de bandeira,
@@ -155,8 +160,7 @@ public class Minesweeper {
 
 			System.out.println("Jogada?");
 
-			Scanner teclado = new Scanner(System.in);
-			String aux = teclado.nextLine().trim();
+			String aux = getMoveFromKeyboard();
 
 			if(aux.charAt(0)=='#'){
 				gravaJogo();
@@ -218,7 +222,7 @@ public class Minesweeper {
 					do{
 						System.out.print("Quer mesmo jogar na coordenada? (Y/N) "
 								+((char)((int)l+ 'A'))+" "+(c+1)+" (est  assinalada com uma bandeira)");
-						escolha = teclado.next().toUpperCase().charAt(0);
+						escolha = getMoveFromKeyboard().toUpperCase().charAt(0);
 					}while(escolha != 'N' && escolha != 'Y');
 
 					if(escolha == 'Y'){

@@ -12,6 +12,7 @@ public class MinesweeperBoard extends Board {
     private static final char BOMB = '*';
 
     private final int bombQty;
+    private int flagsCount = 0;
 
     public MinesweeperBoard(int width, int height, int bombQty) {
         super(width, height);
@@ -74,5 +75,16 @@ public class MinesweeperBoard extends Board {
     private void setBomb(final int x, final int y) {
         setPosition(x, y, BOMB);
     }
+    
+    public void increaseFlags(){
+        flagsCount ++;
+    }
 
+    public void decreaseFlags(){
+        flagsCount --;
+    }
+    
+    public int getFlagsCount(){
+        return flagsCount;
+    }
 }
