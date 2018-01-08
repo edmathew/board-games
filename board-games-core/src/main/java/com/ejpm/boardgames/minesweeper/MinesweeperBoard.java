@@ -72,7 +72,7 @@ public class MinesweeperBoard extends Board {
         return getPosition(x, y) == BOMB;
     }
 
-    private void setBomb(final int x, final int y) {
+    public void setBomb(final int x, final int y) {
         setPosition(x, y, BOMB);
     }
     
