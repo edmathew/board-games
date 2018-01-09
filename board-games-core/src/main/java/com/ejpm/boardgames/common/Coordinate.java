@@ -1,4 +1,4 @@
-package mines;
+package com.ejpm.boardgames.common;
 
 public class Coordinate {
 
