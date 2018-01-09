@@ -23,7 +23,7 @@ public class MinesweeperBoardTest {
     @Test
     public void quantityOfBombsIsEqualToTheBombsSpread(){
         board.spreadBombs();
-        assertThat(board.getCurrentBombQty(), is(board.getBombQty()));
+        assertThat(board.getCurrentBombQty(), is(equalTo(board.getBombQty())));
     }
  
 }

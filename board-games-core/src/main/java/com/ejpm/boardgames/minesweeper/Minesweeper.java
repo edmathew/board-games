@@ -337,8 +337,6 @@ public class Minesweeper {
 	 * @post cumpreInvariante();
 	 */
 	public int nBombas(int x, int y) {
-		Coordenada coordenada_dada = new Coordenada (x,y);
-
 		int n_bombas = 0;
 
 		for(int a = x-1; (a<=(x+1))&& a <=tabuleiro.length; a++){
