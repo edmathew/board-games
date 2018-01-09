@@ -1,6 +1,7 @@
 package com.ejpm.boardgames.common;
 import java.io.PrintWriter;
 
+@Deprecated
 public class Coordenada {
 
 	private int linha;

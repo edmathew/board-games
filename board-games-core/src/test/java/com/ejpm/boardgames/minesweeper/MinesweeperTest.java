@@ -1,6 +1,7 @@
 package com.ejpm.boardgames.minesweeper;
 
 import com.ejpm.boardgames.common.Coordenada;
+import com.ejpm.boardgames.common.Coordinate;
 import java.util.Stack;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +60,7 @@ public class MinesweeperTest {
         int bombCount = 0;
         for (int i = 0; i < mines.getBoard().getWidth(); i++) {
             for (int j = 0; j < mines.getBoard().getHeight(); j++) {
-                if (mines.getBoard().cellIsBomb(new Coordenada(i, j))) {
+                if (mines.getBoard().cellIsBomb(new Coordinate(i, j))) {
                     bombCount++;
                 }
             }
@@ -75,17 +76,5 @@ public class MinesweeperTest {
         assertThat(coordinate.getLinha(), is(equalTo(0)));
     }
     
-    
-    //TODO: This tests belong to the board.
-    
-    @Test
-    public void c1IsABomb(){
-       assertTrue(mines.getBoard().cellIsBomb(new Coordenada(2, 0)));
-    }
-
-    @Test
-    public void b1IsNotABomb(){
-       assertFalse(mines.getBoard().cellIsBomb(new Coordenada(1, 0)));
-    }
     
 }

@@ -2,6 +2,7 @@ package com.ejpm.boardgames.minesweeper;
 import java.io.*;
 import java.util.*;
 import com.ejpm.boardgames.common.Coordenada;
+import com.ejpm.boardgames.common.Coordinate;
 import olfmines.Jogador;
 
 public class Minesweeper {
@@ -359,7 +360,7 @@ public class Minesweeper {
 	 * 
 	 */
 	public boolean jogoTerminado(final Coordenada coordenada) {
-		if(board.cellIsBomb(coordenada)){
+		if(board.cellIsBomb(new Coordinate(coordenada.getLinha(), coordenada.getColuna()))){
 			return true;
 		}else if(!jogoContinua()){
 			return true;
@@ -508,7 +509,7 @@ public class Minesweeper {
 
 		do{
 			jogada = jogo.pedeJogada();
-			if(jogo.getBoard().cellIsBomb(jogada)){
+			if(jogo.getBoard().cellIsBomb(new Coordinate(jogada.getLinha(), jogada.getColuna()))){
 				System.out.println("GAME OVER");
 				jogo.revelaTabuleiro();
 

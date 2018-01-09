@@ -1,7 +1,7 @@
 package com.ejpm.boardgames.minesweeper;
 
 import com.ejpm.boardgames.common.Board;
-import com.ejpm.boardgames.common.Coordenada;
+import com.ejpm.boardgames.common.Coordinate;
 import java.util.Random;
 
 /**
@@ -74,20 +74,12 @@ public class MinesweeperBoard extends Board {
         return getPosition(x, y) == BOMB;
     }
     
-    public boolean cellIsBomb(final Coordenada coordinate){
-        return getPosition(coordinate.getLinha(), coordinate.getColuna()) == BOMB;
+    public boolean cellIsBomb(final Coordinate coordinate){
+        return getPosition(coordinate.getLine(), coordinate.getColumn()) == BOMB;
     }
 
     public void setBomb(final int x, final int y) {
         setPosition(x, y, BOMB);
-    }
-    
-    public void increaseFlags(){
-        flagsCount ++;
-    }
-
-    public void decreaseFlags(){
-        flagsCount --;
     }
     
     public int getFlagsCount(){
