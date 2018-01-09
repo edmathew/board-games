@@ -1,6 +1,7 @@
 package com.ejpm.boardgames.minesweeper;
 
 import com.ejpm.boardgames.common.Board;
+import com.ejpm.boardgames.common.Coordenada;
 import java.util.Random;
 
 /**
@@ -68,8 +69,13 @@ public class MinesweeperBoard extends Board {
         return bombQty;
     }
 
+    @Deprecated
     public boolean cellIsBomb(final int x, final int y) {
         return getPosition(x, y) == BOMB;
+    }
+    
+    public boolean cellIsBomb(final Coordenada coordinate){
+        return getPosition(coordinate.getLinha(), coordinate.getColuna()) == BOMB;
     }
 
     public void setBomb(final int x, final int y) {

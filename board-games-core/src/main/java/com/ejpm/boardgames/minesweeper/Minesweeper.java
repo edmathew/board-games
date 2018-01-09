@@ -39,11 +39,11 @@ public class Minesweeper {
         this.board = board;
         tabuleiro = board.getTabuleiro();
     }
+
+    public MinesweeperBoard getBoard() {
+        return board;
+    }
     
-    
-
-
-
  
 	/**
 	 * Contrutor de um tabuleiro tendo por base
@@ -354,20 +354,12 @@ public class Minesweeper {
 
 	}
 
-
-	public boolean inspectorDeBomba(final Coordenada jogada) {
-		if(tabuleiro[jogada.getLinha()][jogada.getColuna()]!=BOMBA)
-			return false;
-		else
-			return true;
-	}
-
 	/**
 	 * Verifica se o jogo j  acabou
 	 * 
 	 */
 	public boolean jogoTerminado(final Coordenada coordenada) {
-		if(inspectorDeBomba(coordenada)){
+		if(board.cellIsBomb(coordenada)){
 			return true;
 		}else if(!jogoContinua()){
 			return true;
@@ -516,7 +508,7 @@ public class Minesweeper {
 
 		do{
 			jogada = jogo.pedeJogada();
-			if(jogo.inspectorDeBomba(jogada)){
+			if(jogo.getBoard().cellIsBomb(jogada)){
 				System.out.println("GAME OVER");
 				jogo.revelaTabuleiro();
 

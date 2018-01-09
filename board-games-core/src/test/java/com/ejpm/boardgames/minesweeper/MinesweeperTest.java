@@ -57,9 +57,9 @@ public class MinesweeperTest {
     public void inDefaultGameBoardIsFilledWith10Bombs() {
         mines = new Minesweeper();
         int bombCount = 0;
-        for (int i = 0; i < mines.board.getWidth(); i++) {
-            for (int j = 0; j < mines.board.getHeight(); j++) {
-                if (mines.board.cellIsBomb(i, j)) {
+        for (int i = 0; i < mines.getBoard().getWidth(); i++) {
+            for (int j = 0; j < mines.getBoard().getHeight(); j++) {
+                if (mines.getBoard().cellIsBomb(new Coordenada(i, j))) {
                     bombCount++;
                 }
             }
@@ -74,5 +74,18 @@ public class MinesweeperTest {
         assertThat(coordinate.getColuna(), is(equalTo(0)));
         assertThat(coordinate.getLinha(), is(equalTo(0)));
     }
+    
+    
+    //TODO: This tests belong to the board.
+    
+    @Test
+    public void c1IsABomb(){
+       assertTrue(mines.getBoard().cellIsBomb(new Coordenada(2, 0)));
+    }
 
+    @Test
+    public void b1IsNotABomb(){
+       assertFalse(mines.getBoard().cellIsBomb(new Coordenada(1, 0)));
+    }
+    
 }
