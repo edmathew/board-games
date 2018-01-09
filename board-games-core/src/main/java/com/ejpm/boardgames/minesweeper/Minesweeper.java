@@ -162,8 +162,6 @@ public class Minesweeper {
 	 */
 	public Coordenada pedeJogada() {
 		Coordenada coord = null;
-		int l;
-		int c;
 		do{
 
 			System.out.println("Jogada?");
@@ -178,69 +176,10 @@ public class Minesweeper {
 
 			}else if(aux.charAt(0)=='+'){
 
-				final String coord3 = aux.substring(2);
-
-				l = (int)coord3.toUpperCase().charAt(0) - (int)'A';
-
-				final String t = coord3.substring(1).trim().toUpperCase();
-
-				c = coord3.substring(1).trim().length();
-				if (c == 1)
-					c = (int)t.charAt(0) - (int)'0'-1;
-				else {
-					c =  (int) t.charAt(0) - (int)'0';
-					c = c* 10;
-					final int j = (int)t.charAt(1)-(int)'0';
-					c = c+j-1;
-				}
-
-				coord = new Coordenada(l,c);
-
-				if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
-					System.out.println("Jogada Inv lida");
-				}else{
-					contadorBandeiras ++;
-					selecciona(l,c,true);
-					coord=null;
-				}
+				coord = markFlag(aux, coord);
 
 			}else{
-				l = (int)aux.toUpperCase().charAt(0) - (int)'A';
-
-				final String t = aux.substring(1).trim().toUpperCase();
-
-				c = aux.substring(1).trim().length();
-				if(c==1)
-					c = (int)t.charAt(0) - (int)'0'-1;
-				else{
-					c = (int)t.charAt(0)-(int)'0';
-					c = c*10;
-					final int j = (int)t.charAt(1)-(int)'0';
-					c = c+j-1;
-				}
-
-				coord = new Coordenada(l ,c);
-
-				if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
-					System.out.println("Jogada Inv lida");
-				}else if(tabuleiro[l][c]==BANDEIRA || 
-						tabuleiro[l][c] == BANDEIRA_E_BOMBA){
-
-					char escolha;
-					do{
-						System.out.print("Quer mesmo jogar na coordenada? (Y/N) "
-								+((char)((int)l+ 'A'))+" "+(c+1)+" (est  assinalada com uma bandeira)");
-						escolha = getMoveFromKeyboard().toUpperCase().charAt(0);
-					}while(escolha != 'N' && escolha != 'Y');
-
-					if(escolha == 'Y'){
-						contadorBandeiras --;
-					}
-					if (escolha == 'N'){
-						mostrarTabuleiro();
-						coord = null;
-					}
-				}
+				coord = playAt(aux, coord);
 			}
 		}while(coord==null || !dentroDoTabuleiro(coord)||!coordenadaValida(coord));
                 
@@ -249,6 +188,70 @@ public class Minesweeper {
 		return coord;
 
 	}	
+
+    private Coordenada playAt(final String aux, Coordenada coord) {
+        int l;
+        int c;
+        l = (int)aux.toUpperCase().charAt(0) - (int)'A';
+        final String t = aux.substring(1).trim().toUpperCase();
+        c = aux.substring(1).trim().length();
+        if(c==1)
+            c = (int)t.charAt(0) - (int)'0'-1;
+        else{
+            c = (int)t.charAt(0)-(int)'0';
+            c = c*10;
+            final int j = (int)t.charAt(1)-(int)'0';
+            c = c+j-1;
+        }
+        coord = new Coordenada(l ,c);
+        if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
+            System.out.println("Jogada Inv lida");
+        }else if(tabuleiro[l][c]==BANDEIRA ||
+                tabuleiro[l][c] == BANDEIRA_E_BOMBA){
+            
+            char escolha;
+            do{
+                System.out.print("Quer mesmo jogar na coordenada? (Y/N) "
+                        +((char)((int)l+ 'A'))+" "+(c+1)+" (est  assinalada com uma bandeira)");
+                escolha = getMoveFromKeyboard().toUpperCase().charAt(0);
+            }while(escolha != 'N' && escolha != 'Y');
+            
+            if(escolha == 'Y'){
+                contadorBandeiras --;
+            }
+            if (escolha == 'N'){
+                mostrarTabuleiro();
+                coord = null;
+            }
+        }
+        return coord;
+    }
+
+    private Coordenada markFlag(final String aux, Coordenada coord) {
+        int l;
+        int c;
+        final String coord3 = aux.substring(2);
+        l = (int)coord3.toUpperCase().charAt(0) - (int)'A';
+        final String t = coord3.substring(1).trim().toUpperCase();
+        c = coord3.substring(1).trim().length();
+        if (c == 1)
+            c = (int)t.charAt(0) - (int)'0'-1;
+        else {
+            c =  (int) t.charAt(0) - (int)'0';
+            c = c* 10;
+            final int j = (int)t.charAt(1)-(int)'0';
+            c = c+j-1;
+        }
+        coord = new Coordenada(l,c);
+        if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
+            System.out.println("Jogada Inv lida");
+        }else{
+            contadorBandeiras ++;
+            selecciona(l,c,true);
+            coord=null;
+        }
+        return coord;
+    }
 
 	/**
 	 *Selecciona uma posi  o com uma bandeira
@@ -495,45 +498,49 @@ public class Minesweeper {
 
 		}while(escolha > 4 || escolha < 1);
 
-		Scanner teclado = new Scanner (System.in);
-		jogo.mostrarTabuleiro();
-		final Date inicio = new Date();
-
-		Coordenada jogada;
-
-		do{
-			jogada = jogo.pedeJogada();
-			if(jogo.getBoard().cellIsBomb(new Coordinate(jogada.getLinha(), jogada.getColuna()))){
-				System.out.println("GAME OVER");
-				jogo.revelaTabuleiro();
-
-			}else{
-				jogo.revela(jogada);
-				jogo.mostrarTabuleiro();
-			}
-			if(!jogo.jogoContinua()){
-				System.out.println("Ganhou.");
-				final Date fim = new Date();
-				double tempo = (fim.getTime() - inicio.getTime())/1000;
-
-
-				System.out.println("Terminou em "+tempo+ " s");
-				jogo.revelaTabuleiro();
-
-				String nome;
-				do{
-					System.out.print("Introduza o seu nome: ");
-					nome = teclado.nextLine();
-
-					if(nome.length()<1)
-						System.out.print("Erro 1");
-
-				}while(nome.length()<1);
-
-				final Jogador player = new Jogador (nome,tempo);
-				player.gravaRecord(player);
-			}
-
-		}while(!jogo.jogoTerminado(jogada));
+                play(jogo);
 	}
+
+    public static void play(Minesweeper jogo) {
+        Scanner teclado = new Scanner (System.in);
+        jogo.mostrarTabuleiro();
+        final Date inicio = new Date();
+        
+        Coordenada jogada;
+        
+        do{
+            jogada = jogo.pedeJogada();
+            if(jogo.getBoard().cellIsBomb(new Coordinate(jogada.getLinha(), jogada.getColuna()))){
+                System.out.println("GAME OVER");
+                jogo.revelaTabuleiro();
+                
+            }else{
+                jogo.revela(jogada);
+                jogo.mostrarTabuleiro();
+            }
+            if(!jogo.jogoContinua()){
+                System.out.println("Ganhou.");
+                final Date fim = new Date();
+                double tempo = (fim.getTime() - inicio.getTime())/1000;
+                
+                
+                System.out.println("Terminou em "+tempo+ " s");
+                jogo.revelaTabuleiro();
+                
+                String nome;
+                do{
+                    System.out.print("Introduza o seu nome: ");
+                    nome = teclado.nextLine();
+                    
+                    if(nome.length()<1)
+                        System.out.print("Erro 1");
+                    
+                }while(nome.length()<1);
+                
+                final Jogador player = new Jogador (nome,tempo);
+                player.gravaRecord(player);
+            }
+            
+        }while(!jogo.jogoTerminado(jogada));
+    }
 }
