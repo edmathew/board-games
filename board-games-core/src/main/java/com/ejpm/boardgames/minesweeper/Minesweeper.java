@@ -241,7 +241,9 @@ public class Minesweeper {
 				}
 			}
 		}while(coord==null || !dentroDoTabuleiro(coord)||!coordenadaValida(coord));
-
+                
+                System.out.println("coordinate: " + coord.getLinha() + " - " + coord.getColuna());
+                
 		return coord;
 
 	}	
