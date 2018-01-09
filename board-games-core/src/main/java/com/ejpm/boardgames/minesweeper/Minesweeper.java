@@ -8,6 +8,15 @@ public class Minesweeper {
 
     private static final int DEFAULT_DIMENTION = 9;
     private static final int DEFAULT_MINES = 10;
+
+	public static final char OCULTO = '-';
+	public static final char BANDEIRA = 'F';
+	public static final char BANDEIRA_E_BOMBA = 'B';
+	public static final char BOMBA = '*';
+
+        protected MinesweeperBoard board;
+	protected char[][] tabuleiro = null;
+ 	protected int contadorBandeiras;
     
     public Minesweeper() {
         this(DEFAULT_DIMENTION, DEFAULT_DIMENTION, DEFAULT_MINES);
@@ -32,14 +41,7 @@ public class Minesweeper {
     }
     
     
-	public static final char OCULTO = '-';
-	public static final char BANDEIRA = 'F';
-	public static final char BANDEIRA_E_BOMBA = 'B';
-	public static final char BOMBA = '*';
 
-        protected MinesweeperBoard board;
-	protected char[][] tabuleiro = null;
- 	protected int contadorBandeiras=0;
 
 
  
@@ -47,22 +49,22 @@ public class Minesweeper {
 	 * Contrutor de um tabuleiro tendo por base
 	 * um ficheiro
 	 */
-	public Minesweeper(String nome_ficheiro) {
+	public Minesweeper(final String nome_ficheiro) {
 		assert nome_ficheiro != null;
 
 		try {
-			Scanner ficheiro = new Scanner(new File(nome_ficheiro));
-			int dim_x = ficheiro.nextInt();
-			int dim_y = ficheiro.nextInt();
+			final Scanner ficheiro = new Scanner(new File(nome_ficheiro));
+			final int dim_x = ficheiro.nextInt();
+			final int dim_y = ficheiro.nextInt();
 
 			this.tabuleiro = new char [dim_x][dim_y];
 
-			int n_bombas = ficheiro.nextInt();
+			final int n_bombas = ficheiro.nextInt();
 			int count = 0;
 
 			while (ficheiro.hasNextInt() && count <= n_bombas){
-				int coordx = ficheiro.nextInt();
-				int coordy = ficheiro.nextInt();
+				final int coordx = ficheiro.nextInt();
+				final int coordy = ficheiro.nextInt();
 				tabuleiro [coordx][coordy]=BOMBA;
 				count ++;
 			}
@@ -76,7 +78,7 @@ public class Minesweeper {
 
 
 		} catch (IOException e) {
-                    throw new RuntimeException("Outstanding error");
+                    System.err.println("Outstanding error - TO be refactored");
 		}
 	}
 
@@ -88,7 +90,7 @@ public class Minesweeper {
  
 
 
-	void mostrarTabuleiro() {
+	public void mostrarTabuleiro() {
 		for(int x= 0;x<=tabuleiro[0].length;x++){ // Componente Horizontal das coordenadas
 			if(x==0){
 				System.out.print("   ");
@@ -119,7 +121,7 @@ public class Minesweeper {
 
 	}
 
-	void revelaTabuleiro(){
+	public void revelaTabuleiro(){
 		for(int x= 0;x<=tabuleiro[0].length;x++){ // Componente Horizontal das coordenadas
 			if(x==0){
 				System.out.print("   ");
@@ -148,8 +150,7 @@ public class Minesweeper {
 	}
         
     public String getMoveFromKeyboard() {
-        Scanner keyboard = new Scanner(System.in);
-        return keyboard.nextLine().trim();
+        return new Scanner(System.in).nextLine().trim();
     }
 
 	/**
@@ -166,7 +167,7 @@ public class Minesweeper {
 
 			System.out.println("Jogada?");
 
-			String aux = getMoveFromKeyboard();
+			final String aux = getMoveFromKeyboard();
 
 			if(aux.charAt(0)=='#'){
 				gravaJogo();
@@ -176,11 +177,11 @@ public class Minesweeper {
 
 			}else if(aux.charAt(0)=='+'){
 
-				String coord3 = aux.substring(2);
+				final String coord3 = aux.substring(2);
 
 				l = (int)coord3.toUpperCase().charAt(0) - (int)'A';
 
-				String t = coord3.substring(1).trim().toUpperCase();
+				final String t = coord3.substring(1).trim().toUpperCase();
 
 				c = coord3.substring(1).trim().length();
 				if (c == 1)
@@ -188,7 +189,7 @@ public class Minesweeper {
 				else {
 					c =  (int) t.charAt(0) - (int)'0';
 					c = c* 10;
-					int j = (int)t.charAt(1)-(int)'0';
+					final int j = (int)t.charAt(1)-(int)'0';
 					c = c+j-1;
 				}
 
@@ -205,7 +206,7 @@ public class Minesweeper {
 			}else{
 				l = (int)aux.toUpperCase().charAt(0) - (int)'A';
 
-				String t = aux.substring(1).trim().toUpperCase();
+				final String t = aux.substring(1).trim().toUpperCase();
 
 				c = aux.substring(1).trim().length();
 				if(c==1)
@@ -213,7 +214,7 @@ public class Minesweeper {
 				else{
 					c = (int)t.charAt(0)-(int)'0';
 					c = c*10;
-					int j = (int)t.charAt(1)-(int)'0';
+					final int j = (int)t.charAt(1)-(int)'0';
 					c = c+j-1;
 				}
 
@@ -252,7 +253,7 @@ public class Minesweeper {
 	 *Selecciona uma posi  o com uma bandeira
 	 *@pre dentroDoTabuleiro(new Coordenada(x,y)) && coordenadaValida(new Coordenada(x,y) 
 	 */
-	public void selecciona(int x, int y, boolean bandeira){
+	public void selecciona(final int x, final int y, final boolean bandeira){
 		assert dentroDoTabuleiro(new Coordenada(x,y));
 		assert coordenadaValida(new Coordenada(x,y));
 
@@ -276,7 +277,7 @@ public class Minesweeper {
 	 * 
 	 * @pre c!=null
 	 */
-	public boolean dentroDoTabuleiro(Coordenada c) {
+	public boolean dentroDoTabuleiro(final Coordenada c) {
 		assert c !=null;
 
 		if(c.getLinha()>=tabuleiro.length||c.getLinha()<0||
@@ -306,7 +307,7 @@ public class Minesweeper {
 	/**
 	 * 
 	 */
-	public void revela(Coordenada coord) {
+	public void revela(final Coordenada coord) {
 
 		assert dentroDoTabuleiro(coord);
 		int n_bombas = nBombas(coord.getLinha(), coord.getColuna());
@@ -356,7 +357,7 @@ public class Minesweeper {
 	}
 
 
-	public boolean inspectorDeBomba(Coordenada jogada) {
+	public boolean inspectorDeBomba(final Coordenada jogada) {
 		if(tabuleiro[jogada.getLinha()][jogada.getColuna()]!=BOMBA)
 			return false;
 		else
@@ -367,7 +368,7 @@ public class Minesweeper {
 	 * Verifica se o jogo j  acabou
 	 * 
 	 */
-	public boolean jogoTerminado(Coordenada coordenada) {
+	public boolean jogoTerminado(final Coordenada coordenada) {
 		if(inspectorDeBomba(coordenada)){
 			return true;
 		}else if(!jogoContinua()){
@@ -411,7 +412,7 @@ public class Minesweeper {
 			}
 		}
 
-		Coordenada []memoria = new Coordenada [n_bombas];
+		final Coordenada []memoria = new Coordenada [n_bombas];
 
 		for(int i = 0, count = 0; i < tabuleiro.length; i ++){
 			for(int j = 0; j < tabuleiro[i].length; j ++){
@@ -423,7 +424,7 @@ public class Minesweeper {
 		}
 
 		try {
-			PrintWriter ficheiro = new PrintWriter(new File("save.txt"));
+			final PrintWriter ficheiro = new PrintWriter(new File("save.txt"));
 			ficheiro.println(tabuleiro.length+" "+tabuleiro[0].length);
 			ficheiro.println(n_bombas);
 			for(int i = 0; i < memoria.length;i++){
@@ -446,7 +447,7 @@ public class Minesweeper {
 
 
 	//Programa MinesSweeper
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		System.out.println(
 				"_______________________________________________________\n"+
@@ -469,7 +470,7 @@ public class Minesweeper {
 
 		int escolha;
 		do{
-			Scanner teclado = new Scanner (System.in);
+			final Scanner teclado = new Scanner (System.in);
 			System.out.println("Main Menu:" +
 					"\n1 - Usar tabuleiro Standard (9x9 com 10 minas)" +
 					"\n2 - Personalizar o tabuleiro" +
@@ -485,24 +486,23 @@ public class Minesweeper {
 				break;
 			case 2:
 				System.out.print("Altura? ");
-				int x = teclado.nextInt();
+				final int x = teclado.nextInt();
 
 				System.out.print("Largura? ");
-				int y = teclado.nextInt();
+				final int y = teclado.nextInt();
 
 				System.out.print("N  de bombas? ");
-				int n_bombas = teclado.nextInt();
+				final int n_bombas = teclado.nextInt();
 
 				jogo = new Minesweeper(x,y,n_bombas);
 				break;
 			case 3:
 				System.out.print("Nome do ficheiro(.txt): ");
-				String ficheiro = teclado.next();
+				final String ficheiro = teclado.next();
 				jogo = new Minesweeper(ficheiro);
 				break;
 			case 4:
-				System.exit(0);
-				break;
+				return;
 			default:
 				System.out.println("Op  o Inv lida.");
 			break;
@@ -512,7 +512,7 @@ public class Minesweeper {
 
 		Scanner teclado = new Scanner (System.in);
 		jogo.mostrarTabuleiro();
-		Date inicio = new Date();
+		final Date inicio = new Date();
 
 		Coordenada jogada;
 
@@ -528,7 +528,7 @@ public class Minesweeper {
 			}
 			if(!jogo.jogoContinua()){
 				System.out.println("Ganhou.");
-				Date fim = new Date();
+				final Date fim = new Date();
 				double tempo = (fim.getTime() - inicio.getTime())/1000;
 
 
@@ -545,7 +545,7 @@ public class Minesweeper {
 
 				}while(nome.length()<1);
 
-				Jogador player = new Jogador (nome,tempo);
+				final Jogador player = new Jogador (nome,tempo);
 				player.gravaRecord(player);
 			}
 
