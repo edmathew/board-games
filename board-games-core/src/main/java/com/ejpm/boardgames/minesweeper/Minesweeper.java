@@ -279,13 +279,7 @@ public class Minesweeper {
 	 * @pre c!=null
 	 */
 	public boolean dentroDoTabuleiro(final Coordenada c) {
-		assert c !=null;
-
-		if(c.getLinha()>=tabuleiro.length||c.getLinha()<0||
-				c.getColuna()>=tabuleiro[0].length||c.getColuna()<0){
-			return false;	
-		}
-		return true;
+		return board.isInsideTheBoard(new Coordinate(c.getLinha(), c.getColuna()));
 	}
 
 

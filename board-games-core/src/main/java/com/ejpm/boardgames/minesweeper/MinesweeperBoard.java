@@ -85,4 +85,8 @@ public class MinesweeperBoard extends Board {
     public int getFlagsCount(){
         return flagsCount;
     }
+    
+    public boolean isInsideTheBoard(final Coordinate coord) {
+        return coord.getLine() >= 0 && coord.getColumn() >= 0 && coord.getLine() < getWidth() && coord.getColumn() < getHeight();
+    }
 }
