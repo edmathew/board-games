@@ -51,8 +51,6 @@ public class Minesweeper {
 	 * um ficheiro
 	 */
 	public Minesweeper(final String nome_ficheiro) {
-		assert nome_ficheiro != null;
-
 		try {
 			final Scanner ficheiro = new Scanner(new File(nome_ficheiro));
 			final int dim_x = ficheiro.nextInt();
@@ -189,7 +187,7 @@ public class Minesweeper {
 
 	}	
 
-    private Coordenada playAt(final String aux, Coordenada coord) {
+    public Coordenada playAt(final String aux, Coordenada coord) {
         int l;
         int c;
         l = (int)aux.toUpperCase().charAt(0) - (int)'A';
@@ -227,7 +225,7 @@ public class Minesweeper {
         return coord;
     }
 
-    private Coordenada markFlag(final String aux, Coordenada coord) {
+    public Coordenada markFlag(final String aux, Coordenada coord) {
         int l;
         int c;
         final String coord3 = aux.substring(2);
@@ -258,8 +256,6 @@ public class Minesweeper {
 	 *@pre dentroDoTabuleiro(new Coordenada(x,y)) && coordenadaValida(new Coordenada(x,y) 
 	 */
 	public void selecciona(final int x, final int y, final boolean bandeira){
-		assert dentroDoTabuleiro(new Coordenada(x,y));
-		assert coordenadaValida(new Coordenada(x,y));
 
 		if(tabuleiro [x][y] == BANDEIRA){
 			tabuleiro[x][y]=OCULTO;
@@ -307,8 +303,7 @@ public class Minesweeper {
 	 */
 	public void revela(final Coordenada coord) {
 
-		assert dentroDoTabuleiro(coord);
-		int n_bombas = nBombas(coord.getLinha(), coord.getColuna());
+ 		int n_bombas = nBombas(coord.getLinha(), coord.getColuna());
 
 
 		tabuleiro[coord.getLinha()][coord.getColuna()] = (char)('0'+n_bombas);

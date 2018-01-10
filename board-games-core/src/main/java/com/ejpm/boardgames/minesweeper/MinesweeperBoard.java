@@ -11,6 +11,7 @@ import java.util.Random;
 public class MinesweeperBoard extends Board {
 
     private static final char BOMB = '*';
+    private static final char FLAG = 'F';
 
     private final int bombQty;
     private int flagsCount;
@@ -69,13 +70,16 @@ public class MinesweeperBoard extends Board {
         return bombQty;
     }
 
-    @Deprecated
-    public boolean cellIsBomb(final int x, final int y) {
+    private boolean cellIsBomb(final int x, final int y) {
         return getPosition(x, y) == BOMB;
     }
     
     public boolean cellIsBomb(final Coordinate coordinate){
         return getPosition(coordinate.getLine(), coordinate.getColumn()) == BOMB;
+    }
+    
+    public boolean cellIsFlag(final Coordinate coordinate){
+        return getPosition(coordinate.getLine(), coordinate.getColumn()) == FLAG;
     }
 
     public void setBomb(final int x, final int y) {

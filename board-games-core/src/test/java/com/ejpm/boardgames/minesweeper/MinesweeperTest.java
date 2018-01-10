@@ -76,5 +76,11 @@ public class MinesweeperTest {
         assertThat(coordinate.getLinha(), is(equalTo(0)));
     }
     
+    @Test
+    public void markFlagInPositionMarkFlagInBoard(){
+        mines.markFlag("+ A1", null);
+        assertTrue(mines.getBoard().cellIsFlag(new Coordinate(0, 0)));
+    }
+    
     
 }
