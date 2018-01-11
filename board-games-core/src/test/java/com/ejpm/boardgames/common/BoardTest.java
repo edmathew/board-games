@@ -13,7 +13,7 @@ public class BoardTest {
 
     private Board board;
 
-    private static final int BOARD_SIZE = 3;
+    private static final int BOARD_SIZE = 10;
 
     @Before
     public void setUp() {
@@ -61,7 +61,7 @@ public class BoardTest {
     @Test
     public void coordinatesAreBotOnTheBoard() {
         assertFalse(board.insideTheBoard(new Coordinate(-1, 0)));
-        assertFalse(board.insideTheBoard(new Coordinate(1, 9)));
+        assertFalse(board.insideTheBoard(new Coordinate(1, 21)));
         assertFalse(board.insideTheBoard(new Coordinate(5, 176)));
         assertFalse(board.insideTheBoard(new Coordinate(0, -1)));
         assertFalse(board.insideTheBoard(new Coordinate(-1, -8)));
