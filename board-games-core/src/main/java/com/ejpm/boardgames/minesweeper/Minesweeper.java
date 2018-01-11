@@ -17,7 +17,6 @@ public class Minesweeper {
 
         protected MinesweeperBoard board;
 	protected char[][] tabuleiro;
- 	protected int contadorBandeiras;
     
     public Minesweeper() {
         this(DEFAULT_DIMENTION, DEFAULT_DIMENTION, DEFAULT_MINES);
@@ -44,10 +43,6 @@ public class Minesweeper {
         return board;
     }
 
-    public int getContadorBandeiras() {
-        return contadorBandeiras;
-    }
-    
 	/**
 	 * Contrutor de um tabuleiro tendo por base
 	 * um ficheiro
@@ -204,9 +199,6 @@ public class Minesweeper {
                 escolha = getMoveFromKeyboard().toUpperCase().charAt(0);
             }while(escolha != 'N' && escolha != 'Y');
             
-            if(escolha == 'Y'){
-                contadorBandeiras --;
-            }
             if (escolha == 'N'){
                 mostrarTabuleiro();
                 coord = null;
@@ -218,7 +210,6 @@ public class Minesweeper {
     public void markFlag(final String aux) {
         final Coordinate coordinate = getCoordinateFromString(aux);
         if(board.insideTheBoard(coordinate)){
-            contadorBandeiras ++;
             board.toggleFlag(coordinate);            
         }
     }

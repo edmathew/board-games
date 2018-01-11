@@ -15,7 +15,6 @@ public class MinesweeperBoard extends Board {
     private static final char FLAG_AND_BOMB = 'B';
 
     private final int bombQty;
-    private int flagsCount;
 
     public MinesweeperBoard(final int width, final int height, final int bombQty) {
         super(width, height);
@@ -97,6 +96,14 @@ public class MinesweeperBoard extends Board {
     }
 
     public int getFlagsCount() {
+        int flagsCount = 0;
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if (isFlag(new Coordinate(i, j)) || isFlagAndBomb(new Coordinate(i, j))) {
+                    flagsCount++;
+                }
+            }
+        }
         return flagsCount;
     }
 
@@ -108,6 +115,12 @@ public class MinesweeperBoard extends Board {
         setPosition(c, FLAG);
     }
 
+    /**
+     * Toggle the flag at the given coordinate
+     *
+     * @param c Coordinate to toogle the flag
+     * @pre insideTheBoard(c)
+     */
     public void toggleFlag(final Coordinate c) {
         if (isHidden(c)) {
             setFlag(c);

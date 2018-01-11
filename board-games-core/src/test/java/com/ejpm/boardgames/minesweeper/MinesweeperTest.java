@@ -77,10 +77,8 @@ public class MinesweeperTest {
 
     @Test
     public void markFlagInPositionMarkFlagInBoard() {
-        int currentFlagCount = mines.getContadorBandeiras();
         mines.markFlag("A1");
         assertTrue(mines.getBoard().isFlag(new Coordinate(0, 0)));
-        assertThat(currentFlagCount + 1, is(equalTo(mines.getContadorBandeiras())));
     }
 
     @Test
@@ -98,9 +96,9 @@ public class MinesweeperTest {
 
     @Test
     public void flagInCoordinateOutOfBoounds() {
-        int currentFlagCount = mines.getContadorBandeiras();
+        int currentFlagCount = mines.getBoard().getFlagsCount();
         mines.markFlag("A43");
-        assertThat(currentFlagCount, is(equalTo(mines.getContadorBandeiras())));
+        assertThat(currentFlagCount, is(equalTo(mines.getBoard().getFlagsCount())));
     }
     
     @Test
