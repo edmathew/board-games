@@ -38,10 +38,33 @@ public class BoardTest {
             }
         }
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void invalidCoordinateThrowsException(){
+    public void invalidCoordinateThrowsException() {
         board.getPosition(-1, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setValueAtACoordinateOutOfBoundsThrowsException() {
+        board.setPosition(new Coordinate(100, 100), 'B');
+    }
+
+    @Test
+    public void coordinatesAreOnTheBoard() {
+        assertTrue(board.insideTheBoard(new Coordinate(0, 0)));
+        assertTrue(board.insideTheBoard(new Coordinate(1, 0)));
+        assertTrue(board.insideTheBoard(new Coordinate(5, 5)));
+        assertTrue(board.insideTheBoard(new Coordinate(8, 8)));
+        assertTrue(board.insideTheBoard(new Coordinate(0, 8)));
+    }
+
+    @Test
+    public void coordinatesAreBotOnTheBoard() {
+        assertFalse(board.insideTheBoard(new Coordinate(-1, 0)));
+        assertFalse(board.insideTheBoard(new Coordinate(1, 9)));
+        assertFalse(board.insideTheBoard(new Coordinate(5, 176)));
+        assertFalse(board.insideTheBoard(new Coordinate(0, -1)));
+        assertFalse(board.insideTheBoard(new Coordinate(-1, -8)));
     }
 
 }

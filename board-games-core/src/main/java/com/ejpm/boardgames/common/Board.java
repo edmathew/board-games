@@ -1,7 +1,7 @@
 package com.ejpm.boardgames.common;
 
 /**
- * 
+ *
  * @author ejpmateus
  */
 public class Board {
@@ -30,8 +30,8 @@ public class Board {
     }
 
     public char getPosition(final int x, final int y) {
-        if (x >= width || y >= height || x < 0 || y < 0) {
-            throw new IllegalArgumentException("The coordinate must be valid for the board size");
+        if (!insideTheBoard(new Coordinate(x, y))) {
+            throw new IllegalArgumentException(String.format("Coodinate %s,%s is not inside the board", x, y));
         }
 
         return board[x][y];
@@ -44,9 +44,21 @@ public class Board {
     public int getHeight() {
         return height;
     }
-    
-    protected void setPosition(final int x, final int y, final char value){
+
+    private void setPosition(final int x, final int y, final char value) {
         board[x][y] = value;
     }
-    
+
+    protected void setPosition(final Coordinate c, final char value) {
+        if (!insideTheBoard(c)) {
+            throw new IllegalArgumentException(String.format("Coordinate %s is not inside the board", c.toString()));
+        }
+
+        setPosition(c.getLine(), c.getColumn(), value);
+    }
+
+    public boolean insideTheBoard(final Coordinate coord) {
+        return coord.getLine() >= 0 && coord.getColumn() >= 0 && coord.getLine() < getWidth() && coord.getColumn() < getHeight();
+    }
+
 }

@@ -39,9 +39,8 @@ public class MinesweeperTest {
         movePlays.push("A1");
         movePlays.push("+ B1");
         
-        final MinesweeperBoard board = new MinesweeperBoard(9, 9, 1);
+        final MinesweeperBoard board = new MinesweeperBoard(9, 10, 1);
         board.setBomb(2, 0);
-        
         mines = new TestableMinesweeper(board, movePlays);
 
     }
@@ -78,9 +77,28 @@ public class MinesweeperTest {
     
     @Test
     public void markFlagInPositionMarkFlagInBoard(){
+        int currentFlagCount = mines.getContadorBandeiras();
         mines.markFlag("+ A1", null);
         assertTrue(mines.getBoard().cellIsFlag(new Coordinate(0, 0)));
+        assertThat(currentFlagCount + 1, is(equalTo(mines.getContadorBandeiras())));
     }
     
+    @Test
+    public void whenUnmarkingAFlagThePositionReturnsToHidden(){
+        mines.markFlag("+ A1", null);
+        mines.markFlag("+ A1", null);
+        assertFalse(mines.getBoard().cellIsFlag(new Coordinate(0, 0)));
+    }
+    
+    @Test
+    public void markFlagInPositionMarkFlagInBoardAtColumnWith2Digits(){
+        mines.markFlag("+ A10", null);
+        assertTrue(mines.getBoard().cellIsFlag(new Coordinate(0, 9)));
+    }
+    
+    @Test
+    public void FlagInCoordinateOutOfBoounds(){
+        mines.markFlag("+ A43", null);
+    }
     
 }

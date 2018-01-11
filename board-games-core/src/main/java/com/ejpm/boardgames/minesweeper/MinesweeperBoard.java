@@ -28,8 +28,8 @@ public class MinesweeperBoard extends Board {
         final Random r = new Random();
 
         for (int i = 0; i < bombQty; i++) {
-            int x, 
-                y;
+            int x,
+                    y;
             do {
                 x = r.nextInt(getWidth());
                 y = r.nextInt(getHeight());
@@ -39,11 +39,11 @@ public class MinesweeperBoard extends Board {
         }
 
     }
-    
-    
+
     /**
      * Get the quantity of bombs in the board
-     * @return 
+     *
+     * @return
      */
     public int getCurrentBombQty() {
         int bombCount = 0;
@@ -73,24 +73,26 @@ public class MinesweeperBoard extends Board {
     private boolean cellIsBomb(final int x, final int y) {
         return getPosition(x, y) == BOMB;
     }
-    
-    public boolean cellIsBomb(final Coordinate coordinate){
+
+    public boolean cellIsBomb(final Coordinate coordinate) {
         return getPosition(coordinate.getLine(), coordinate.getColumn()) == BOMB;
     }
-    
-    public boolean cellIsFlag(final Coordinate coordinate){
+
+    public boolean cellIsFlag(final Coordinate coordinate) {
         return getPosition(coordinate.getLine(), coordinate.getColumn()) == FLAG;
     }
 
+    @Deprecated
     public void setBomb(final int x, final int y) {
-        setPosition(x, y, BOMB);
+        setBomb(new Coordinate(x, y));
     }
-    
-    public int getFlagsCount(){
+
+    public int getFlagsCount() {
         return flagsCount;
     }
-    
-    public boolean isInsideTheBoard(final Coordinate coord) {
-        return coord.getLine() >= 0 && coord.getColumn() >= 0 && coord.getLine() < getWidth() && coord.getColumn() < getHeight();
+
+    public void setBomb(final Coordinate c) {
+        setPosition(c, BOMB);
     }
+
 }

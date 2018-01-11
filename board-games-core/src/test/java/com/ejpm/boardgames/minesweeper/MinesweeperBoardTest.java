@@ -36,23 +36,4 @@ public class MinesweeperBoardTest {
     public void b1IsNotABomb() {
         assertFalse(board.cellIsBomb(new Coordinate(1, 0)));
     }
-
-    @Test
-    public void coordinatesAreOnTheBoard() {
-        assertTrue(board.isInsideTheBoard(new Coordinate(0, 0)));
-        assertTrue(board.isInsideTheBoard(new Coordinate(1, 0)));
-        assertTrue(board.isInsideTheBoard(new Coordinate(5, 5)));
-        assertTrue(board.isInsideTheBoard(new Coordinate(8, 8)));
-        assertTrue(board.isInsideTheBoard(new Coordinate(0, 8)));
-    }
-    
-    @Test
-    public void coordinatesAreBotOnTheBoard() {
-        assertFalse(board.isInsideTheBoard(new Coordinate(-1, 0)));
-        assertFalse(board.isInsideTheBoard(new Coordinate(1, 9)));
-        assertFalse(board.isInsideTheBoard(new Coordinate(5, 176)));
-        assertFalse(board.isInsideTheBoard(new Coordinate(0, -1)));
-        assertFalse(board.isInsideTheBoard(new Coordinate(-1, -8)));
-    }
-
 }

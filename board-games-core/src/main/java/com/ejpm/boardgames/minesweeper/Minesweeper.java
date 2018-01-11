@@ -44,8 +44,11 @@ public class Minesweeper {
     public MinesweeperBoard getBoard() {
         return board;
     }
+
+    public int getContadorBandeiras() {
+        return contadorBandeiras;
+    }
     
- 
 	/**
 	 * Contrutor de um tabuleiro tendo por base
 	 * um ficheiro
@@ -226,12 +229,10 @@ public class Minesweeper {
     }
 
     public Coordenada markFlag(final String aux, Coordenada coord) {
-        int l;
-        int c;
         final String coord3 = aux.substring(2);
-        l = (int)coord3.toUpperCase().charAt(0) - (int)'A';
+        final int l = (int)coord3.toUpperCase().charAt(0) - (int)'A';
         final String t = coord3.substring(1).trim().toUpperCase();
-        c = coord3.substring(1).trim().length();
+        int c = coord3.substring(1).trim().length();
         if (c == 1)
             c = (int)t.charAt(0) - (int)'0'-1;
         else {
@@ -278,7 +279,7 @@ public class Minesweeper {
 	 * @pre c!=null
 	 */
 	public boolean dentroDoTabuleiro(final Coordenada c) {
-		return board.isInsideTheBoard(new Coordinate(c.getLinha(), c.getColuna()));
+		return board.insideTheBoard(new Coordinate(c.getLinha(), c.getColuna()));
 	}
 
 
