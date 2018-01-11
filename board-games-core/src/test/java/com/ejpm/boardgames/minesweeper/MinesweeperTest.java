@@ -78,33 +78,33 @@ public class MinesweeperTest {
     @Test
     public void markFlagInPositionMarkFlagInBoard() {
         int currentFlagCount = mines.getContadorBandeiras();
-        mines.markFlag("+ A1");
+        mines.markFlag("A1");
         assertTrue(mines.getBoard().isFlag(new Coordinate(0, 0)));
         assertThat(currentFlagCount + 1, is(equalTo(mines.getContadorBandeiras())));
     }
 
     @Test
     public void whenUnmarkingAFlagThePositionReturnsToHidden() {
-        mines.markFlag("+ A1");
-        mines.markFlag("+ A1");
+        mines.markFlag("A1");
+        mines.markFlag("A1");
         assertFalse(mines.getBoard().isFlag(new Coordinate(0, 0)));
     }
 
     @Test
     public void markFlagInPositionMarkFlagInBoardAtColumnWith2Digits() {
-        mines.markFlag("+ A10");
+        mines.markFlag("A10");
         assertTrue(mines.getBoard().isFlag(new Coordinate(0, 9)));
     }
 
     @Test
     public void flagInCoordinateOutOfBoounds() {
         int currentFlagCount = mines.getContadorBandeiras();
-        mines.markFlag("+ A43");
+        mines.markFlag("A43");
         assertThat(currentFlagCount, is(equalTo(mines.getContadorBandeiras())));
     }
     
     @Test
     public void flagInBombPositionTogglesABombAndFlag() {
-        mines.markFlag("+ C1");
+        mines.markFlag("C1");
     }
 }

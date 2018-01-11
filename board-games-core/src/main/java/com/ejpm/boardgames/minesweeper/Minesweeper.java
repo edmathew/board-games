@@ -16,7 +16,7 @@ public class Minesweeper {
 	public static final char BOMBA = '*';
 
         protected MinesweeperBoard board;
-	protected char[][] tabuleiro = null;
+	protected char[][] tabuleiro;
  	protected int contadorBandeiras;
     
     public Minesweeper() {
@@ -170,17 +170,17 @@ public class Minesweeper {
 
 			if(aux.charAt(0)=='#'){
 				gravaJogo();
-			}else if(aux.length() <2 || aux.equals("")){
+			}else if(aux.length() <2){
 				System.out.println("Jogada Inv lida");
 				coord = null;
 
 			}else if(aux.charAt(0)=='+'){
 
-				coord = markFlag(aux);
+				markFlag(aux.substring(2));
                                 mostrarTabuleiro();
 
 			}else{
-				coord = playAt(aux, coord);
+				coord = playAt(aux);
 			}
 		}while(coord==null || !dentroDoTabuleiro(coord)||!coordenadaValida(coord));
                 
@@ -190,30 +190,17 @@ public class Minesweeper {
 
 	}	
 
-    public Coordenada playAt(final String aux, Coordenada coord) {
-        int l;
-        int c;
-        l = (int)aux.toUpperCase().charAt(0) - (int)'A';
-        final String t = aux.substring(1).trim().toUpperCase();
-        c = aux.substring(1).trim().length();
-        if(c==1)
-            c = (int)t.charAt(0) - (int)'0'-1;
-        else{
-            c = (int)t.charAt(0)-(int)'0';
-            c = c*10;
-            final int j = (int)t.charAt(1)-(int)'0';
-            c = c+j-1;
-        }
-        coord = new Coordenada(l ,c);
+    public Coordenada playAt(final String aux) {
+        final Coordinate coordinate = getCoordinateFromString(aux);
+        Coordenada coord = new Coordenada(coordinate.getLine() ,coordinate.getColumn());
         if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
             System.out.println("Jogada Inv lida");
-        }else if(tabuleiro[l][c]==BANDEIRA ||
-                tabuleiro[l][c] == BANDEIRA_E_BOMBA){
+        }else if(tabuleiro[coordinate.getLine()][coordinate.getColumn()]==BANDEIRA ||
+                tabuleiro[coordinate.getLine()][coordinate.getColumn()] == BANDEIRA_E_BOMBA){
             
             char escolha;
             do{
-                System.out.print("Quer mesmo jogar na coordenada? (Y/N) "
-                        +((char)((int)l+ 'A'))+" "+(c+1)+" (est  assinalada com uma bandeira)");
+                System.out.print("Quer mesmo jogar na coordenada? (Y/N) (" + aux + "está  assinalada com uma bandeira)");
                 escolha = getMoveFromKeyboard().toUpperCase().charAt(0);
             }while(escolha != 'N' && escolha != 'Y');
             
@@ -228,30 +215,29 @@ public class Minesweeper {
         return coord;
     }
 
-    public Coordenada markFlag(final String aux) {
-        final String coord3 = aux.substring(2);
-        final int l = (int)coord3.toUpperCase().charAt(0) - (int)'A';
-        final String t = coord3.substring(1).trim().toUpperCase();
-        int c = coord3.substring(1).trim().length();
-        if (c == 1)
-            c = (int)t.charAt(0) - (int)'0'-1;
-        else {
-            c =  (int) t.charAt(0) - (int)'0';
-            c = c* 10;
-            final int j = (int)t.charAt(1)-(int)'0';
-            c = c+j-1;
-        }
-        final Coordenada coord = new Coordenada(l,c);
-        if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
-            System.out.println("Jogada Inv lida");
-        }else{
+    public void markFlag(final String aux) {
+        final Coordinate coordinate = getCoordinateFromString(aux);
+        if(board.insideTheBoard(coordinate)){
             contadorBandeiras ++;
-            board.toggleFlag(new Coordinate(l, c));
-            return null;
+            board.toggleFlag(coordinate);            
         }
-        return coord;
     }
 
+    public Coordinate getCoordinateFromString(final String coord3) {
+        final int l = (int) coord3.toUpperCase().charAt(0) - (int) 'A';
+        final String t = coord3.substring(1).trim().toUpperCase();
+        int c = coord3.substring(1).trim().length();
+        if (c == 1) {
+            c = (int) t.charAt(0) - (int) '0' - 1;
+        } else {
+            c = (int) t.charAt(0) - (int) '0';
+            c = c * 10;
+            final int j = (int) t.charAt(1) - (int) '0';
+            c = c + j - 1;
+        }
+        return new Coordinate(l, c);
+    }
+    
 
 	/**
 	 * Verifica se a coordenada dada est  dentro dos limites
@@ -268,7 +254,7 @@ public class Minesweeper {
 	 * Verifica se a coordenada   valida para ser jogada
 	 * 
 	 */
-	private boolean coordenadaValida(Coordenada coordenada){
+	private boolean coordenadaValida(final Coordenada coordenada){
 		if(tabuleiro[coordenada.getLinha()][coordenada.getColuna()]!= OCULTO &&
 				tabuleiro[coordenada.getLinha()][coordenada.getColuna()]!= BANDEIRA_E_BOMBA &&
 				tabuleiro[coordenada.getLinha()][coordenada.getColuna()]!= BOMBA&&
@@ -311,7 +297,7 @@ public class Minesweeper {
 	 * @pre tabuleiro[x][y] != BOMBA && dentroDoTabuleiro(coordenada_dada);
 	 * @post cumpreInvariante();
 	 */
-	public int nBombas(int x, int y) {
+	public int nBombas(final int x, final int y) {
 		int n_bombas = 0;
 
 		for(int a = x-1; (a<=(x+1))&& a <=tabuleiro.length; a++){
