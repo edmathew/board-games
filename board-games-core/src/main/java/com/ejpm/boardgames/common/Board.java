@@ -60,5 +60,13 @@ public class Board {
     public boolean insideTheBoard(final Coordinate coord) {
         return coord.getLine() >= 0 && coord.getColumn() >= 0 && coord.getLine() < getWidth() && coord.getColumn() < getHeight();
     }
+    
+    public boolean isHidden(final Coordinate coordinate) {
+        return getPosition(coordinate.getLine(), coordinate.getColumn()) == EMPTY_CELL;
+    }
+    
+    public void setHidden(final Coordinate c) {
+        setPosition(c, EMPTY_CELL);
+    }
 
 }

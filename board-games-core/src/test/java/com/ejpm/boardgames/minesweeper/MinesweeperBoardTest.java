@@ -14,6 +14,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
  */
 public class MinesweeperBoardTest {
 
+    private static final Coordinate BOMB_COORDINATE = new Coordinate(2, 0);
+
     private MinesweeperBoard board;
 
     @Before
@@ -29,11 +31,26 @@ public class MinesweeperBoardTest {
 
     @Test
     public void c1IsABomb() {
-        assertTrue(board.cellIsBomb(new Coordinate(2, 0)));
+        assertTrue(board.isBomb(BOMB_COORDINATE));
     }
 
     @Test
     public void b1IsNotABomb() {
-        assertFalse(board.cellIsBomb(new Coordinate(1, 0)));
+        assertFalse(board.isBomb(new Coordinate(1, 0)));
+    }
+
+    @Test
+    public void flagInBombPositionTogglesABombAndFlag() {
+        board.toggleFlag(BOMB_COORDINATE);
+        assertThat(board.getPosition(2, 0), is(equalTo('B')));
+    }
+
+    @Test
+    public void toggleAFlagAndBombReturnsToBomb() {
+        board.toggleFlag(BOMB_COORDINATE);
+        assertThat(board.getPosition(2, 0), is(equalTo('B')));
+
+        board.toggleFlag(BOMB_COORDINATE);
+        assertThat(board.getPosition(2, 0), is(equalTo('*')));
     }
 }

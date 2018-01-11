@@ -35,7 +35,6 @@ public class Minesweeper {
         tabuleiro = board.getTabuleiro();
     }
     
-    
     public Minesweeper(final MinesweeperBoard board) {
         this.board = board;
         tabuleiro = board.getTabuleiro();
@@ -177,7 +176,8 @@ public class Minesweeper {
 
 			}else if(aux.charAt(0)=='+'){
 
-				coord = markFlag(aux, coord);
+				coord = markFlag(aux);
+                                mostrarTabuleiro();
 
 			}else{
 				coord = playAt(aux, coord);
@@ -228,7 +228,7 @@ public class Minesweeper {
         return coord;
     }
 
-    public Coordenada markFlag(final String aux, Coordenada coord) {
+    public Coordenada markFlag(final String aux) {
         final String coord3 = aux.substring(2);
         final int l = (int)coord3.toUpperCase().charAt(0) - (int)'A';
         final String t = coord3.substring(1).trim().toUpperCase();
@@ -241,36 +241,17 @@ public class Minesweeper {
             final int j = (int)t.charAt(1)-(int)'0';
             c = c+j-1;
         }
-        coord = new Coordenada(l,c);
+        final Coordenada coord = new Coordenada(l,c);
         if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
             System.out.println("Jogada Inv lida");
         }else{
             contadorBandeiras ++;
-            selecciona(l,c,true);
-            coord=null;
+            board.toggleFlag(new Coordinate(l, c));
+            return null;
         }
         return coord;
     }
 
-	/**
-	 *Selecciona uma posi  o com uma bandeira
-	 *@pre dentroDoTabuleiro(new Coordenada(x,y)) && coordenadaValida(new Coordenada(x,y) 
-	 */
-	public void selecciona(final int x, final int y, final boolean bandeira){
-
-		if(tabuleiro [x][y] == BANDEIRA){
-			tabuleiro[x][y]=OCULTO;
-		}else if(tabuleiro [x][y] == BOMBA){
-			tabuleiro[x][y]=BANDEIRA_E_BOMBA;
-		}else if(tabuleiro[x][y]==OCULTO){
-			tabuleiro [x][y] = BANDEIRA;
-		}else if (tabuleiro [x][y]==BANDEIRA_E_BOMBA ){
-			tabuleiro[x][y]=BOMBA;
-		}
-
-
-		mostrarTabuleiro();
-	}
 
 	/**
 	 * Verifica se a coordenada dada est  dentro dos limites
@@ -353,7 +334,7 @@ public class Minesweeper {
 	 * 
 	 */
 	public boolean jogoTerminado(final Coordenada coordenada) {
-		if(board.cellIsBomb(new Coordinate(coordenada.getLinha(), coordenada.getColuna()))){
+		if(board.isBomb(new Coordinate(coordenada.getLinha(), coordenada.getColuna()))){
 			return true;
 		}else if(!jogoContinua()){
 			return true;
@@ -506,7 +487,7 @@ public class Minesweeper {
         
         do{
             jogada = jogo.pedeJogada();
-            if(jogo.getBoard().cellIsBomb(new Coordinate(jogada.getLinha(), jogada.getColuna()))){
+            if(jogo.getBoard().isBomb(new Coordinate(jogada.getLinha(), jogada.getColuna()))){
                 System.out.println("GAME OVER");
                 jogo.revelaTabuleiro();
                 

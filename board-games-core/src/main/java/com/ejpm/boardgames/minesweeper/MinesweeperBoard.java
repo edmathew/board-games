@@ -12,6 +12,7 @@ public class MinesweeperBoard extends Board {
 
     private static final char BOMB = '*';
     private static final char FLAG = 'F';
+    private static final char FLAG_AND_BOMB = 'B';
 
     private final int bombQty;
     private int flagsCount;
@@ -74,12 +75,20 @@ public class MinesweeperBoard extends Board {
         return getPosition(x, y) == BOMB;
     }
 
-    public boolean cellIsBomb(final Coordinate coordinate) {
+    public boolean isBomb(final Coordinate coordinate) {
         return getPosition(coordinate.getLine(), coordinate.getColumn()) == BOMB;
     }
 
-    public boolean cellIsFlag(final Coordinate coordinate) {
+    public boolean isFlag(final Coordinate coordinate) {
         return getPosition(coordinate.getLine(), coordinate.getColumn()) == FLAG;
+    }
+
+    private boolean isFlagAndBomb(final Coordinate coordinate) {
+        return getPosition(coordinate.getLine(), coordinate.getColumn()) == FLAG_AND_BOMB;
+    }
+
+    private void setFlagAndBomb(final Coordinate coordinate) {
+        setPosition(coordinate, FLAG_AND_BOMB);
     }
 
     @Deprecated
@@ -95,4 +104,19 @@ public class MinesweeperBoard extends Board {
         setPosition(c, BOMB);
     }
 
+    private void setFlag(final Coordinate c) {
+        setPosition(c, FLAG);
+    }
+
+    public void toggleFlag(final Coordinate c) {
+        if (isHidden(c)) {
+            setFlag(c);
+        } else if (isFlag(c)) {
+            setHidden(c);
+        } else if (isBomb(c)) {
+            setFlagAndBomb(c);
+        } else if (isFlagAndBomb(c)) {
+            setBomb(c);
+        }
+    }
 }
