@@ -43,47 +43,6 @@ public class Minesweeper {
         return board;
     }
 
-	/**
-	 * Contrutor de um tabuleiro tendo por base
-	 * um ficheiro
-	 */
-	public Minesweeper(final String nome_ficheiro) {
-		try {
-			final Scanner ficheiro = new Scanner(new File(nome_ficheiro));
-			final int dim_x = ficheiro.nextInt();
-			final int dim_y = ficheiro.nextInt();
-
-			this.tabuleiro = new char [dim_x][dim_y];
-
-			final int n_bombas = ficheiro.nextInt();
-			int count = 0;
-
-			while (ficheiro.hasNextInt() && count <= n_bombas){
-				final int coordx = ficheiro.nextInt();
-				final int coordy = ficheiro.nextInt();
-				tabuleiro [coordx][coordy]=BOMBA;
-				count ++;
-			}
-
-			for(int i = 0; i < tabuleiro.length; i++){
-				for(int j = 0; j < tabuleiro[i].length; j++){
-					if(tabuleiro[i][j]!= BOMBA)
-						tabuleiro [i][j] = OCULTO;
-				}
-			}
-
-
-		} catch (IOException e) {
-                    System.err.println("Outstanding error - TO be refactored");
-		}
-	}
-
-
-
-
-
-
- 
 
 
 	public void mostrarTabuleiro() {
@@ -155,38 +114,25 @@ public class Minesweeper {
 	 * 
 	 * @post cumpreInvariante()
 	 */
-	public Coordenada pedeJogada() {
+	public Coordenada pedeJogada(String aux) {
 		Coordenada coord = null;
-		do{
-
-			System.out.println("Jogada?");
-
-			final String aux = getMoveFromKeyboard();
-
 			if(aux.charAt(0)=='#'){
 				gravaJogo();
 			}else if(aux.length() <2){
 				System.out.println("Jogada Inv lida");
 				coord = null;
-
 			}else if(aux.charAt(0)=='+'){
-
-				markFlag(aux.substring(2));
+				markFlag(getCoordinateFromString(aux.substring(2)));
                                 mostrarTabuleiro();
-
 			}else{
-				coord = playAt(aux);
+				coord = playAt(getCoordinateFromString(aux));
 			}
-		}while(coord==null || !dentroDoTabuleiro(coord)||!coordenadaValida(coord));
-                
-                System.out.println("coordinate: " + coord.getLinha() + " - " + coord.getColuna());
                 
 		return coord;
 
 	}	
 
-    public Coordenada playAt(final String aux) {
-        final Coordinate coordinate = getCoordinateFromString(aux);
+    public Coordenada playAt(final Coordinate coordinate) {
         Coordenada coord = new Coordenada(coordinate.getLine() ,coordinate.getColumn());
         if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
             System.out.println("Jogada Inv lida");
@@ -195,7 +141,7 @@ public class Minesweeper {
             
             char escolha;
             do{
-                System.out.print("Quer mesmo jogar na coordenada? (Y/N) (" + aux + "está  assinalada com uma bandeira)");
+                System.out.print("Quer mesmo jogar na coordenada? (Y/N) " );
                 escolha = getMoveFromKeyboard().toUpperCase().charAt(0);
             }while(escolha != 'N' && escolha != 'Y');
             
@@ -206,13 +152,14 @@ public class Minesweeper {
         }
         return coord;
     }
+    
 
-    public void markFlag(final String aux) {
-        final Coordinate coordinate = getCoordinateFromString(aux);
-        if(board.insideTheBoard(coordinate)){
-            board.toggleFlag(coordinate);            
+    public void markFlag(final Coordinate coordinate) {
+        if (board.insideTheBoard(coordinate)) {
+            board.toggleFlag(coordinate);
         }
     }
+    
 
     public Coordinate getCoordinateFromString(final String coord3) {
         final int l = (int) coord3.toUpperCase().charAt(0) - (int) 'A';
@@ -344,40 +291,7 @@ public class Minesweeper {
 	 * 
 	 */
 	public void gravaJogo(){
-
-		int n_bombas = 0;
-
-		for(int i = 0; i < tabuleiro.length; i ++){
-			for(int j = 0 ; j < tabuleiro[i].length; j ++){
-				if (tabuleiro[i][j] == BOMBA)
-					n_bombas ++;
-			}
-		}
-
-		final Coordenada []memoria = new Coordenada [n_bombas];
-
-		for(int i = 0, count = 0; i < tabuleiro.length; i ++){
-			for(int j = 0; j < tabuleiro[i].length; j ++){
-				if(tabuleiro [i][j]==BOMBA){
-					memoria [count]= new Coordenada(i,j);
-					count ++;
-				}
-			}
-		}
-
-		try {
-			final PrintWriter ficheiro = new PrintWriter(new File("save.txt"));
-			ficheiro.println(tabuleiro.length+" "+tabuleiro[0].length);
-			ficheiro.println(n_bombas);
-			for(int i = 0; i < memoria.length;i++){
-				memoria[i].gravaPara(ficheiro);
-			}
-			ficheiro.close();
-			System.out.println("O jogo foi gravado em save.txt");
-
-		} catch (FileNotFoundException e) {
-			System.out.println("Erro de escrita no ficheiro");
-		}
+            
 	}
 
 
@@ -439,10 +353,8 @@ public class Minesweeper {
 				jogo = new Minesweeper(x,y,n_bombas);
 				break;
 			case 3:
-				System.out.print("Nome do ficheiro(.txt): ");
-				final String ficheiro = teclado.next();
-				jogo = new Minesweeper(ficheiro);
-				break;
+                                System.out.println("To be inplement");
+				return;
 			case 4:
 				return;
 			default:
@@ -463,7 +375,7 @@ public class Minesweeper {
         Coordenada jogada;
         
         do{
-            jogada = jogo.pedeJogada();
+            jogada = jogo.pedeJogada(jogo.getMoveFromKeyboard());
             if(jogo.getBoard().isBomb(new Coordinate(jogada.getLinha(), jogada.getColuna()))){
                 System.out.println("GAME OVER");
                 jogo.revelaTabuleiro();

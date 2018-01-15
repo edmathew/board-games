@@ -16,6 +16,12 @@ import static org.hamcrest.core.IsEqual.equalTo;
  */
 public class MinesweeperTest {
 
+    private final Coordinate COORDINATE_A1 = new Coordinate(0, 0);
+    private final Coordinate COORDINATE_A10 = new Coordinate(0, 9);
+    private final Coordinate COORDINATE_A100 = new Coordinate(0, 99);
+
+    private final Coordinate COORDINATE_C1_BOMB = new Coordinate(2, 0);
+
     private class TestableMinesweeper extends Minesweeper {
 
         private final Stack<String> keyboardInputs;
@@ -70,39 +76,46 @@ public class MinesweeperTest {
 
     @Test
     public void askForShotReturnsACoordinate() {
-        final Coordenada coordinate = mines.pedeJogada();
+        final Coordenada coordinate = mines.pedeJogada("A1");
         assertThat(coordinate.getColuna(), is(equalTo(0)));
         assertThat(coordinate.getLinha(), is(equalTo(0)));
+    }
+    
+    @Test
+    public void coordinatePrefixedByPlusSignMarksAFlagInBoard() {
+        mines.pedeJogada("+ A1");
+        assertTrue(mines.getBoard().isFlag(COORDINATE_A1));
     }
 
     @Test
     public void markFlagInPositionMarkFlagInBoard() {
-        mines.markFlag("A1");
-        assertTrue(mines.getBoard().isFlag(new Coordinate(0, 0)));
+        mines.markFlag(COORDINATE_A1);
     }
 
     @Test
     public void whenUnmarkingAFlagThePositionReturnsToHidden() {
-        mines.markFlag("A1");
-        mines.markFlag("A1");
-        assertFalse(mines.getBoard().isFlag(new Coordinate(0, 0)));
+        mines.markFlag(COORDINATE_A1);
+        mines.markFlag(COORDINATE_A1);
+        assertFalse(mines.getBoard().isFlag(COORDINATE_A1));
     }
 
     @Test
     public void markFlagInPositionMarkFlagInBoardAtColumnWith2Digits() {
-        mines.markFlag("A10");
-        assertTrue(mines.getBoard().isFlag(new Coordinate(0, 9)));
+        mines.markFlag(COORDINATE_A10);
+        assertTrue(mines.getBoard().isFlag(COORDINATE_A10));
     }
 
     @Test
     public void flagInCoordinateOutOfBoounds() {
         int currentFlagCount = mines.getBoard().getFlagsCount();
-        mines.markFlag("A43");
+        mines.markFlag(COORDINATE_A100);
         assertThat(currentFlagCount, is(equalTo(mines.getBoard().getFlagsCount())));
     }
-    
+
     @Test
     public void flagInBombPositionTogglesABombAndFlag() {
-        mines.markFlag("C1");
+        mines.markFlag(COORDINATE_C1_BOMB);
+        assertThat(mines.getBoard().getPosition(COORDINATE_C1_BOMB.getLine(), COORDINATE_C1_BOMB.getColumn()), is(equalTo('B')));
     }
+    
 }
