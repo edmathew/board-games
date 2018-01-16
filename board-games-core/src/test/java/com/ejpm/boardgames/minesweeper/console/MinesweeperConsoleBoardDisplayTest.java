@@ -21,7 +21,7 @@ public class MinesweeperConsoleBoardDisplayTest {
 
     @Before
     public void setUp() {
-        board = new MinesweeperBoard(9, 9, 1);
+        board = new MinesweeperBoard(4, 4, 1);
         board.setBomb(new Coordinate(2, 0));
         board.toggleFlag(new Coordinate(3, 0));
     }
@@ -39,5 +39,16 @@ public class MinesweeperConsoleBoardDisplayTest {
                 + "----\n"
                 + "----\n"
                 + "----\n")));
+    }
+    
+    
+    @Test
+    public void boardWithBombAndFlag() {
+        final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(board);
+        assertThat(representation, is(equalTo(
+                "----\n"
+                + "----\n"
+                + "----\n"
+                + "F---\n")));
     }
 }
