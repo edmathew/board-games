@@ -10,8 +10,9 @@ import java.util.Random;
  */
 public class MinesweeperBoard extends Board {
 
+    public static final char FLAG = 'F';
+
     private static final char BOMB = '*';
-    private static final char FLAG = 'F';
     private static final char FLAG_AND_BOMB = 'B';
 
     private final int bombQty;
@@ -82,7 +83,7 @@ public class MinesweeperBoard extends Board {
         return getPosition(coordinate.getLine(), coordinate.getColumn()) == FLAG;
     }
 
-    private boolean isFlagAndBomb(final Coordinate coordinate) {
+    public boolean isFlagAndBomb(final Coordinate coordinate) {
         return getPosition(coordinate.getLine(), coordinate.getColumn()) == FLAG_AND_BOMB;
     }
 

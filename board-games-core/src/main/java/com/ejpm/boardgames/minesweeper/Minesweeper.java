@@ -2,6 +2,8 @@ package com.ejpm.boardgames.minesweeper;
 import java.util.*;
 import com.ejpm.boardgames.common.Coordenada;
 import com.ejpm.boardgames.common.Coordinate;
+import com.ejpm.boardgames.common.console.ConsoleOutputGridDecorator;
+import com.ejpm.boardgames.minesweeper.console.MinesweeperConsoleBoardDisplay;
 import olfmines.Jogador;
 
 public class Minesweeper {
@@ -41,39 +43,12 @@ public class Minesweeper {
     public MinesweeperBoard getBoard() {
         return board;
     }
+    
+    public String getConsoleOutput(){
+        return new ConsoleOutputGridDecorator(board.getWidth()).apply(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board));
+    }
 
 
-
-	public void mostrarTabuleiro() {
-		for(int x= 0;x<=tabuleiro[0].length;x++){ // Componente Horizontal das coordenadas
-			if(x==0){
-				System.out.print("   ");
-			}else if(x<9){
-				System.out.print(x+"  ");
-			}else if(x>=9){
-				System.out.print(x+" ");
-			}
-		}
-		System.out.println();
-
-		for(int i=0, y=(int)'A'; i < tabuleiro.length; i++){
-			//Componente vertical das coordenadas
-
-			System.out.print((char)y+"  ");
-			for(int j=0; j < tabuleiro[i].length; j++){
-				if(tabuleiro[i][j] == BOMBA){
-					System.out.print(OCULTO+ "  ");
-				}else if(tabuleiro[i][j]== BANDEIRA_E_BOMBA){
-					System.out.print(BANDEIRA+ "  ");
-				}else{
-					System.out.print(tabuleiro[i][j]+ "  ");
-				}
-			}System.out.println();
-			y++;
-		}
-		System.out.println("Bandeiras Colocadas: "+ board.getFlagsCount());
-
-	}
 
 	public void revelaTabuleiro(){
 		for(int x= 0;x<=tabuleiro[0].length;x++){ // Componente Horizontal das coordenadas
@@ -122,7 +97,7 @@ public class Minesweeper {
 				coord = null;
 			}else if(aux.charAt(0)=='+'){
 				markFlag(getCoordinateFromString(aux.substring(2)));
-                                mostrarTabuleiro();
+                                System.out.println(getConsoleOutput());
 			}else{
 				coord = playAt(getCoordinateFromString(aux));
 			}
@@ -145,7 +120,6 @@ public class Minesweeper {
             }while(escolha != 'N' && escolha != 'Y');
             
             if (escolha == 'N'){
-                mostrarTabuleiro();
                 coord = null;
             }
         }
@@ -351,7 +325,7 @@ public class Minesweeper {
 
     public static void play(Minesweeper jogo) {
         Scanner teclado = new Scanner (System.in);
-        jogo.mostrarTabuleiro();
+        System.out.println(jogo.getConsoleOutput());
         final Date inicio = new Date();
         
         Coordenada jogada;
@@ -364,7 +338,7 @@ public class Minesweeper {
                 
             }else{
                 jogo.revela(jogada);
-                jogo.mostrarTabuleiro();
+                System.out.println(jogo.getConsoleOutput());
             }
             if(!jogo.jogoContinua()){
                 System.out.println("Ganhou.");

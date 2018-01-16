@@ -23,7 +23,10 @@ public class MinesweeperConsoleBoardDisplayTest {
     public void setUp() {
         board = new MinesweeperBoard(4, 4, 1);
         board.setBomb(new Coordinate(2, 0));
+        board.setBomb(new Coordinate(3, 1));
         board.toggleFlag(new Coordinate(3, 0));
+        board.toggleFlag(new Coordinate(3, 1));
+
     }
 
     @Test
@@ -40,8 +43,7 @@ public class MinesweeperConsoleBoardDisplayTest {
                 + "----\n"
                 + "----\n")));
     }
-    
-    
+
     @Test
     public void boardWithBombAndFlag() {
         final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(board);
@@ -49,6 +51,6 @@ public class MinesweeperConsoleBoardDisplayTest {
                 "----\n"
                 + "----\n"
                 + "----\n"
-                + "F---\n")));
+                + "FF--\n")));
     }
 }

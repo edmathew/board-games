@@ -1,6 +1,5 @@
 package com.ejpm.boardgames.minesweeper.console;
 
-import com.ejpm.boardgames.common.Board;
 import com.ejpm.boardgames.common.Coordinate;
 import com.ejpm.boardgames.minesweeper.MinesweeperBoard;
 
@@ -17,8 +16,11 @@ public class MinesweeperConsoleBoardDisplay {
 
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
-                if (board.isBomb(new Coordinate(i, j))) {
-                    representation.append(Board.EMPTY_CELL);
+                final Coordinate c = new Coordinate(i, j);
+                if (board.isBomb(c)) {
+                    representation.append(MinesweeperBoard.EMPTY_CELL);
+                } else if (board.isFlagAndBomb(c)) {
+                    representation.append(MinesweeperBoard.FLAG);
                 } else {
                     representation.append(board.getPosition(i, j));
                 }

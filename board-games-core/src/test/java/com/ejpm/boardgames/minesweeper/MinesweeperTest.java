@@ -80,7 +80,7 @@ public class MinesweeperTest {
         assertThat(coordinate.getColuna(), is(equalTo(0)));
         assertThat(coordinate.getLinha(), is(equalTo(0)));
     }
-    
+
     @Test
     public void coordinatePrefixedByPlusSignMarksAFlagInBoard() {
         mines.pedeJogada("+ A1");
@@ -90,6 +90,8 @@ public class MinesweeperTest {
     @Test
     public void markFlagInPositionMarkFlagInBoard() {
         mines.markFlag(COORDINATE_A1);
+        assertThat(mines.getBoard().getFlagsCount(), is(equalTo(1)));
+
     }
 
     @Test
@@ -117,5 +119,5 @@ public class MinesweeperTest {
         mines.markFlag(COORDINATE_C1_BOMB);
         assertThat(mines.getBoard().getPosition(COORDINATE_C1_BOMB.getLine(), COORDINATE_C1_BOMB.getColumn()), is(equalTo('B')));
     }
-    
+
 }
