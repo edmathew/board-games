@@ -12,22 +12,39 @@ import org.junit.Test;
  */
 public class ConsoleOutputGridDecoratorTest {
 
-    private final static String INPUT_TEST
-            = "----\n"
-            + "----\n"
-            + "----\n"
-            + "----\n";
-
-    private final static String EXPECTED_OUTPUT
-            = "  1 2 3 4 \n"
-            + "A - - - - \n"
-            + "B - - - - \n"
-            + "C - - - - \n"
-            + "D - - - - \n";
-
     @Test
     public void decoratorValidation() {
-        assertThat(new ConsoleOutputGridDecorator(4).apply(INPUT_TEST), is(equalTo(EXPECTED_OUTPUT)));
+        String input
+                = "----\n"
+                + "----\n"
+                + "----\n"
+                + "----\n";
+
+        String output
+                = "   1  2  3  4  \n"
+                + "A  -  -  -  -  \n"
+                + "B  -  -  -  -  \n"
+                + "C  -  -  -  -  \n"
+                + "D  -  -  -  -  \n";
+
+        assertThat(new ConsoleOutputGridDecorator(4).apply(input), is(equalTo(output)));
     }
 
+    @Test
+    public void decoratorValidationWhenColumnHas2Digits() {
+        String input
+                = "------------\n"
+                + "------------\n"
+                + "------------\n"
+                + "------------\n";
+
+        String output
+                = "   1  2  3  4  5  6  7  8  9  10 11 12 \n"
+                + "A  -  -  -  -  -  -  -  -  -  -  -  -  \n"
+                + "B  -  -  -  -  -  -  -  -  -  -  -  -  \n"
+                + "C  -  -  -  -  -  -  -  -  -  -  -  -  \n"
+                + "D  -  -  -  -  -  -  -  -  -  -  -  -  \n";
+
+        assertThat(new ConsoleOutputGridDecorator(12).apply(input), is(equalTo(output)));
+    }
 }
