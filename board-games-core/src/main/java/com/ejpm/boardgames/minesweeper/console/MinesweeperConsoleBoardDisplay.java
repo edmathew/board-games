@@ -11,7 +11,16 @@ public class MinesweeperConsoleBoardDisplay {
     private static final String EMPTY_STRING = "";
 
     public String getStringRepresentation(final MinesweeperBoard board) {
-        return EMPTY_STRING;
+        final StringBuffer representation = new StringBuffer(EMPTY_STRING);
+        
+        for(int i = 0; i < board.getWidth(); i ++){
+            for(int j = 0; j < board.getHeight(); j ++){
+                representation.append(board.getPosition(i, j));
+            }
+            representation.append("\n");
+        }
+        
+        return representation.toString();
     }
 
 }

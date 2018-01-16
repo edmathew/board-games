@@ -31,4 +31,13 @@ public class MinesweeperConsoleBoardDisplayTest {
         assertThat(new MinesweeperConsoleBoardDisplay().getStringRepresentation(new MinesweeperBoard(0, 0, 0)), is(equalTo(EMPTY_STRING)));
     }
 
+    @Test
+    public void noBombsBoard() {
+        final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(new MinesweeperBoard(4, 4, 0));
+        assertThat(representation, is(equalTo(
+                "----\n"
+                + "----\n"
+                + "----\n"
+                + "----\n")));
+    }
 }
