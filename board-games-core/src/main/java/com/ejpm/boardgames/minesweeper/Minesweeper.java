@@ -45,39 +45,13 @@ public class Minesweeper {
     }
     
     public String getConsoleOutput(){
-        return new ConsoleOutputGridDecorator(board.getWidth()).apply(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board));
+        return new ConsoleOutputGridDecorator(board.getWidth()).apply(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, false));
+    }
+    
+    public String getRevealedConsoleOutput(){
+        return new ConsoleOutputGridDecorator(board.getWidth()).apply(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, true));
     }
 
-
-
-	public void revelaTabuleiro(){
-		for(int x= 0;x<=tabuleiro[0].length;x++){ // Componente Horizontal das coordenadas
-			if(x==0){
-				System.out.print("   ");
-			}else if(x<9){
-				System.out.print(x+"  ");
-			}else if(x>=9){
-				System.out.print(x+" ");
-			}
-		}
-		System.out.println();
-
-		for(int i=0, y=(int)'A'; i < tabuleiro.length; i++){
-			//Componente vertical das coordenadas
-
-			System.out.print((char)y+"  ");
-			for(int j=0; j < tabuleiro[i].length; j++){
-				if (tabuleiro[i][j] == BANDEIRA_E_BOMBA){
-					System.out.print(BOMBA+ "  ");
-				}else{
-					System.out.print(tabuleiro[i][j]+"  ");
-				}
-			}
-			System.out.println();
-			y++;
-		}
-	}
-        
     public String getMoveFromKeyboard() {
         return new Scanner(System.in).nextLine().trim();
     }
@@ -334,7 +308,7 @@ public class Minesweeper {
             jogada = jogo.pedeJogada(jogo.getMoveFromKeyboard());
             if(jogo.getBoard().isBomb(new Coordinate(jogada.getLinha(), jogada.getColuna()))){
                 System.out.println("GAME OVER");
-                jogo.revelaTabuleiro();
+                System.out.println(jogo.getRevealedConsoleOutput());
                 
             }else{
                 jogo.revela(jogada);
@@ -347,7 +321,8 @@ public class Minesweeper {
                 
                 
                 System.out.println("Terminou em "+tempo+ " s");
-                jogo.revelaTabuleiro();
+                System.out.println(jogo.getRevealedConsoleOutput());
+
                 
                 String nome;
                 do{

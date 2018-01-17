@@ -31,12 +31,12 @@ public class MinesweeperConsoleBoardDisplayTest {
 
     @Test
     public void anEmptyBoardReturnsEmtpyString() {
-        assertThat(new MinesweeperConsoleBoardDisplay().getStringRepresentation(new MinesweeperBoard(0, 0, 0)), is(equalTo(EMPTY_STRING)));
+        assertThat(new MinesweeperConsoleBoardDisplay().getStringRepresentation(new MinesweeperBoard(0, 0, 0), false), is(equalTo(EMPTY_STRING)));
     }
 
     @Test
     public void noBombsBoard() {
-        final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(new MinesweeperBoard(4, 4, 0));
+        final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(new MinesweeperBoard(4, 4, 0), false);
         assertThat(representation, is(equalTo(
                 "----\n"
                 + "----\n"
@@ -46,10 +46,20 @@ public class MinesweeperConsoleBoardDisplayTest {
 
     @Test
     public void boardWithBombAndFlag() {
-        final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(board);
+        final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, false);
         assertThat(representation, is(equalTo(
                 "---F\n"
                 + "---F\n"
+                + "----\n"
+                + "----\n")));
+    }
+
+    @Test
+    public void inRevealBombModeBombsAreShown() {
+        final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, true);
+        assertThat(representation, is(equalTo(
+                "--*F\n"
+                + "---*\n"
                 + "----\n"
                 + "----\n")));
     }

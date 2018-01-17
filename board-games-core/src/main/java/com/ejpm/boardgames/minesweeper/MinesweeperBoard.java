@@ -11,8 +11,8 @@ import java.util.Random;
 public class MinesweeperBoard extends Board {
 
     public static final char FLAG = 'F';
-
-    private static final char BOMB = '*';
+    public static final char BOMB = '*';
+    
     private static final char FLAG_AND_BOMB = 'B';
 
     private final int bombQty;
