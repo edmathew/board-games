@@ -62,7 +62,7 @@ public class Minesweeper {
 	 * 
 	 * @post cumpreInvariante()
 	 */
-	public Coordenada pedeJogada(String aux) {
+	public Coordenada pedeJogada(final String aux) {
 		Coordenada coord = null;
 			if(aux.charAt(0)=='#'){
 				gravaJogo();
@@ -73,33 +73,13 @@ public class Minesweeper {
 				markFlag(getCoordinateFromString(aux.substring(2)));
                                 System.out.println(getConsoleOutput());
 			}else{
-				coord = playAt(getCoordinateFromString(aux));
+				final Coordinate coordinate = getCoordinateFromString(aux);
+                                 coord = new Coordenada(coordinate.getLine() ,coordinate.getColumn());
 			}
                 
 		return coord;
 
 	}	
-
-    public Coordenada playAt(final Coordinate coordinate) {
-        Coordenada coord = new Coordenada(coordinate.getLine() ,coordinate.getColumn());
-        if(!dentroDoTabuleiro(coord)||!coordenadaValida(coord)){
-            System.out.println("Jogada Inv lida");
-        }else if(tabuleiro[coordinate.getLine()][coordinate.getColumn()]==BANDEIRA ||
-                tabuleiro[coordinate.getLine()][coordinate.getColumn()] == BANDEIRA_E_BOMBA){
-            
-            char escolha;
-            do{
-                System.out.print("Quer mesmo jogar na coordenada? (Y/N) " );
-                escolha = getMoveFromKeyboard().toUpperCase().charAt(0);
-            }while(escolha != 'N' && escolha != 'Y');
-            
-            if (escolha == 'N'){
-                coord = null;
-            }
-        }
-        return coord;
-    }
-    
 
     public void markFlag(final Coordinate coordinate) {
         if (board.insideTheBoard(coordinate)) {
