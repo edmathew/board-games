@@ -114,23 +114,6 @@ public class Minesweeper {
 		return board.insideTheBoard(new Coordinate(c.getLinha(), c.getColuna()));
 	}
 
-
-	/**
-	 * Verifica se a coordenada   valida para ser jogada
-	 * 
-	 */
-	private boolean coordenadaValida(final Coordenada coordenada){
-		if(tabuleiro[coordenada.getLinha()][coordenada.getColuna()]!= OCULTO &&
-				tabuleiro[coordenada.getLinha()][coordenada.getColuna()]!= BANDEIRA_E_BOMBA &&
-				tabuleiro[coordenada.getLinha()][coordenada.getColuna()]!= BOMBA&&
-				tabuleiro[coordenada.getLinha()][coordenada.getColuna()]!= BANDEIRA)
-			return false;
-		else
-			return true;
-	}
-
-
-
 	/**
 	 * 
 	 */
