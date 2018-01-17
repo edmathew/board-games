@@ -48,9 +48,9 @@ public class MinesweeperConsoleBoardDisplayTest {
     public void boardWithBombAndFlag() {
         final String representation = new MinesweeperConsoleBoardDisplay().getStringRepresentation(board);
         assertThat(representation, is(equalTo(
-                "----\n"
+                "---F\n"
+                + "---F\n"
                 + "----\n"
-                + "----\n"
-                + "FF--\n")));
+                + "----\n")));
     }
 }

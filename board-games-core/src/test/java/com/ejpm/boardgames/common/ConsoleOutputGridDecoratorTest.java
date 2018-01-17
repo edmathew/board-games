@@ -14,13 +14,13 @@ public class ConsoleOutputGridDecoratorTest {
 
     @Test
     public void decoratorValidation() {
-        String input
+        final String input
                 = "----\n"
                 + "----\n"
                 + "----\n"
                 + "----\n";
 
-        String output
+        final String output
                 = "   1  2  3  4  \n"
                 + "A  -  -  -  -  \n"
                 + "B  -  -  -  -  \n"
@@ -32,13 +32,13 @@ public class ConsoleOutputGridDecoratorTest {
 
     @Test
     public void decoratorValidationWhenColumnHas2Digits() {
-        String input
+        final String input
                 = "------------\n"
                 + "------------\n"
                 + "------------\n"
                 + "------------\n";
 
-        String output
+        final String output
                 = "   1  2  3  4  5  6  7  8  9  10 11 12 \n"
                 + "A  -  -  -  -  -  -  -  -  -  -  -  -  \n"
                 + "B  -  -  -  -  -  -  -  -  -  -  -  -  \n"

@@ -14,15 +14,15 @@ public class MinesweeperConsoleBoardDisplay {
     public String getStringRepresentation(final MinesweeperBoard board) {
         final StringBuffer representation = new StringBuffer(EMPTY_STRING);
 
-        for (int i = 0; i < board.getWidth(); i++) {
-            for (int j = 0; j < board.getHeight(); j++) {
-                final Coordinate c = new Coordinate(i, j);
+        for (int i = 0; i < board.getHeight(); i++) {
+            for (int j = 0; j < board.getWidth(); j++) {
+                final Coordinate c = new Coordinate(j, i);
                 if (board.isBomb(c)) {
                     representation.append(MinesweeperBoard.EMPTY_CELL);
                 } else if (board.isFlagAndBomb(c)) {
                     representation.append(MinesweeperBoard.FLAG);
                 } else {
-                    representation.append(board.getPosition(i, j));
+                    representation.append(board.getPosition(j, i));
                 }
 
             }
