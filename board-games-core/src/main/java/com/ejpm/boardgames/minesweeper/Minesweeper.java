@@ -67,7 +67,7 @@ public class Minesweeper {
 	public Coordenada pedeJogada(final String aux) {
 		Coordenada coord = null;
 			if(aux.charAt(0)=='#'){
-				gravaJogo();
+				System.out.println("Not implemented yet");
 			}else if(aux.length() <2){
 				System.out.println("Jogada Inv lida");
 				coord = null;
@@ -121,7 +121,7 @@ public class Minesweeper {
 	 */
 	public void revela(final Coordenada coord) {
 
- 		int n_bombas = nBombas(coord.getLinha(), coord.getColuna());
+ 		final int n_bombas = nBombas(coord.getLinha(), coord.getColuna());
 
 
 		tabuleiro[coord.getLinha()][coord.getColuna()] = (char)('0'+n_bombas);
@@ -172,11 +172,9 @@ public class Minesweeper {
 	public boolean jogoTerminado(final Coordenada coordenada) {
 		if(board.isBomb(new Coordinate(coordenada.getLinha(), coordenada.getColuna()))){
 			return true;
-		}else if(!jogoContinua()){
-			return true;
-		}else{
-			return false;
 		}
+                
+                return !jogoContinua() ;
 	}
 
 
@@ -195,17 +193,6 @@ public class Minesweeper {
 		return false;
 	}
 
-	/**
-	 * Grava as posi oes das bombas para retomar
-	 * o mesmo tabuleiro mais tarde
-	 * (Foi adoptada esta estrategia com base no que nos foi transmitido
-	 * pelo professor Abilio.)
-	 * 
-	 */
-	public void gravaJogo(){
-            
-	}
-
 
 
 
@@ -213,7 +200,7 @@ public class Minesweeper {
             play(new MinesweeperCMD().generateGame(args));
 	}
 
-    public static void play(Minesweeper jogo) {
+    public static void play(final Minesweeper jogo) {
         Scanner teclado = new Scanner (System.in);
         System.out.println(jogo.getConsoleOutput());
         final Date inicio = new Date();
@@ -233,7 +220,7 @@ public class Minesweeper {
             if(!jogo.jogoContinua()){
                 System.out.println("Ganhou.");
                 final Date fim = new Date();
-                double tempo = (fim.getTime() - inicio.getTime())/1000;
+                final double tempo = (fim.getTime() - inicio.getTime())/1000;
                 
                 
                 System.out.println("Terminou em "+tempo+ " s");
