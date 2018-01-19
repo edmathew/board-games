@@ -105,70 +105,15 @@ public class Minesweeper {
         return new Coordinate(l, c);
     }
     
+    public boolean jogoTerminado(final Coordinate c) {
+        if (board.isBomb(c)) {
+            return true;
+        }
 
-	/**
-	 * Verifica se a coordenada dada est  dentro dos limites
-	 * do tabuleiro em uso
-	 * 
-	 * @pre c!=null
-	 */
-	public boolean dentroDoTabuleiro(final Coordenada c) {
-		return board.insideTheBoard(new Coordinate(c.getLinha(), c.getColuna()));
-	}
-
-	/**
-	 * 
-	 */
-	public void revela(final Coordenada coord) {
-            final int n_bombas = board.getBombsArround(new Coordinate(coord.getLinha(), coord.getColuna()));
-
-
-		tabuleiro[coord.getLinha()][coord.getColuna()] = (char)('0'+n_bombas);
-		if(n_bombas ==0){
-			for(int i = coord.getLinha()-1;i<=coord.getLinha()+1;i++){
-				for(int j = coord.getColuna()-1; j <= coord.getColuna() +1;j++){
-					if (dentroDoTabuleiro(new Coordenada(i, j))){
-						if (tabuleiro[i][j] == OCULTO || tabuleiro[i][j] == BANDEIRA||
-								tabuleiro[i][j] == BANDEIRA_E_BOMBA)
-							revela (new Coordenada (i,j));
-					}
-				}
-			}
-
-		}
-	}
-
-
-	public boolean jogoTerminado(final Coordenada coordenada) {
-		if(board.isBomb(new Coordinate(coordenada.getLinha(), coordenada.getColuna()))){
-			return true;
-		}
-                
-                return !jogoContinua() ;
-	}
-
-
-	/**
-	 * Verifica se ainda ha posi oes por revelar
-	 * @return
-	 */
-	public boolean jogoContinua(){
-		for(int i = 0; i < tabuleiro.length; i++){
-			for(int j = 0; j < tabuleiro[i].length; j ++){
-				if (tabuleiro[i][j]==OCULTO)
-					return true;
-			}
-		}
-
-		return false;
-	}
-
-
-
-
-	public static void main(final String[] args) throws ConsoleInputException {
-            play(new MinesweeperCMD().generateGame(args));
-	}
+        return board.isSolved();
+    }
+    
+ 
 
     public static void play(final Minesweeper jogo) {
         Scanner teclado = new Scanner (System.in);
@@ -184,10 +129,10 @@ public class Minesweeper {
                 System.out.println(jogo.getRevealedConsoleOutput());
                 
             }else{
-                jogo.revela(jogada);
+                jogo.board.revealAt(new Coordinate(jogada.getLinha(), jogada.getColuna()));
                 System.out.println(jogo.getConsoleOutput());
             }
-            if(!jogo.jogoContinua()){
+            if(jogo.getBoard().isSolved()){
                 System.out.println("Ganhou.");
                 final Date fim = new Date();
                 final double tempo = (fim.getTime() - inicio.getTime())/1000;
@@ -211,6 +156,10 @@ public class Minesweeper {
                 player.gravaRecord(player);
             }
             
-        }while(!jogo.jogoTerminado(jogada));
+        }while(!jogo.jogoTerminado(new Coordinate(jogada.getLinha(), jogada.getColuna())));
+    }
+    
+    public static void main(final String[] args) throws ConsoleInputException {
+        play(new MinesweeperCMD().generateGame(args));
     }
 }

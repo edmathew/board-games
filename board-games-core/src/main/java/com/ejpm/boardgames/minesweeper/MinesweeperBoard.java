@@ -134,12 +134,12 @@ public class MinesweeperBoard extends Board {
         }
     }
 
-    public int getBombsArround(final Coordinate c) {
+    public int getBombsAround(final Coordinate c) {
         int bombs = 0;
 
-        for (int x = c.getColumn() - 1; x <= c.getColumn() + 1; x++) {
-            for (int y = c.getLine() - 1; y <= c.getLine() + 1; y++) {
-                final Coordinate coordAround = new Coordinate(y, x);
+        for (int x = c.getLine()- 1; x <= c.getLine() + 1; x++) {
+            for (int y = c.getColumn() - 1; y <= c.getColumn() + 1; y++) {
+                final Coordinate coordAround = new Coordinate(x, y);
                 if (insideTheBoard(coordAround)
                         && (isFlagAndBomb(coordAround) || isBomb(coordAround))) {
                     bombs++;
@@ -153,10 +153,32 @@ public class MinesweeperBoard extends Board {
     public boolean isSolved() {
         for (int i = 0; i < getWidth(); i++) {
             for (int j = 0; j < getHeight(); j++) {
-                if(isHidden(new Coordinate(i, j)))
+                if (isHidden(new Coordinate(i, j))) {
                     return false;
+                }
             }
         }
         return true;
     }
+
+    public void revealAt(final Coordinate c) {
+        final int bombsAround = getBombsAround(c);
+        setPosition(c, (char) (bombsAround + '0'));
+
+        if (bombsAround == 0) {
+            revealAround(c);
+        }
+    }
+
+    private void revealAround(final Coordinate c) {
+        for (int x = c.getLine()- 1; x <= c.getLine() + 1; x++) {
+            for (int y = c.getColumn() - 1; y <= c.getColumn() + 1; y++) {
+                final Coordinate coordAround = new Coordinate(x, y);
+                if (insideTheBoard(coordAround) && isHidden(coordAround)) {
+                    revealAt(coordAround);
+                }
+            }
+        }
+    }
+
 }

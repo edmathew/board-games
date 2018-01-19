@@ -24,8 +24,11 @@ public class MinesweeperBoardTest {
 
     @Before
     public void setUp() {
-        board = new MinesweeperBoard(9, 9, 1);
+        board = new MinesweeperBoard(9, 9, 3);
         board.setBomb(BOMB_COORDINATE);
+
+        board.setBomb(new Coordinate(5, 5));
+        board.setBomb(new Coordinate(6, 6));
     }
 
     @Test
@@ -60,17 +63,32 @@ public class MinesweeperBoardTest {
 
     @Test
     public void thereAreNoBombsAround() {
-        assertThat(board.getBombsArround(BOTTOM_RIGHT), is(equalTo(0)));
+        assertThat(board.getBombsAround(BOTTOM_RIGHT), is(equalTo(0)));
     }
 
     @Test
     public void thereIsABombArroundNoBombsAround() {
         System.out.println(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, true));
-        assertThat(board.getBombsArround(B1_COORDINATE), is(equalTo(1)));
+        assertThat(board.getBombsAround(B1_COORDINATE), is(equalTo(1)));
     }
 
     @Test
     public void atStartBoardIsNotSolved() {
         assertFalse(board.isSolved());
+    }
+
+    @Test
+    public void testReveal() {
+        System.out.println(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, true));
+        board.revealAt(BOTTOM_RIGHT);
+        assertThat(board.getPosition(1, 0), is(equalTo('1')));
+        assertThat(board.getPosition(8, 8), is(equalTo('0')));
+        assertThat(board.getPosition(6, 5), is(equalTo('2')));
+        System.out.println(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, true));
+
+        assertTrue(board.isSolved());
+
+        System.out.println(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, true));
+
     }
 }
