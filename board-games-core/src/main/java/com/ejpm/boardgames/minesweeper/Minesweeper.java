@@ -120,8 +120,7 @@ public class Minesweeper {
 	 * 
 	 */
 	public void revela(final Coordenada coord) {
-
- 		final int n_bombas = nBombas(coord.getLinha(), coord.getColuna());
+            final int n_bombas = board.getBombsArround(new Coordinate(coord.getLinha(), coord.getColuna()));
 
 
 		tabuleiro[coord.getLinha()][coord.getColuna()] = (char)('0'+n_bombas);

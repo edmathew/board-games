@@ -12,7 +12,7 @@ public class MinesweeperBoard extends Board {
 
     public static final char FLAG = 'F';
     public static final char BOMB = '*';
-    
+
     private static final char FLAG_AND_BOMB = 'B';
 
     private final int bombQty;
@@ -132,5 +132,21 @@ public class MinesweeperBoard extends Board {
         } else if (isFlagAndBomb(c)) {
             setBomb(c);
         }
+    }
+
+    public int getBombsArround(final Coordinate c) {
+        int bombs = 0;
+
+        for (int x = c.getColumn() - 1; x <= c.getColumn() + 1; x++) {
+            for (int y = c.getLine() - 1; y <= c.getLine() + 1; y++) {
+                final Coordinate coordAround = new Coordinate(y, x);
+                if (insideTheBoard(coordAround)
+                        && (isFlagAndBomb(coordAround) || isBomb(coordAround))) {
+                    bombs++;
+                }
+            }
+        }
+
+        return bombs;
     }
 }
