@@ -2,7 +2,9 @@ package com.ejpm.boardgames.minesweeper;
 import java.util.*;
 import com.ejpm.boardgames.common.Coordenada;
 import com.ejpm.boardgames.common.Coordinate;
+import com.ejpm.boardgames.common.console.ConsoleInputException;
 import com.ejpm.boardgames.common.console.ConsoleOutputGridDecorator;
+import com.ejpm.boardgames.minesweeper.console.MinesweeperCMD;
 import com.ejpm.boardgames.minesweeper.console.MinesweeperConsoleBoardDisplay;
 import olfmines.Jogador;
 
@@ -207,57 +209,8 @@ public class Minesweeper {
 
 
 
- 
- 
- 
-
-
-	//Programa MinesSweeper
-	public static void main(final String[] args) {
-
-		Minesweeper jogo = null;
-
-		int escolha;
-		do{
-			final Scanner teclado = new Scanner (System.in);
-			System.out.println("Main Menu:" +
-					"\n1 - Usar tabuleiro Standard (9x9 com 10 minas)" +
-					"\n2 - Personalizar o tabuleiro" +
-					"\n3 - Carregar um ficheiro com a disposi  o do tabuleiro" +
-			"\n4 - Sair");
-
-			escolha = teclado.nextInt();
-
-
-			switch (escolha){
-			case 1:
-				jogo = new Minesweeper();
-				break;
-			case 2:
-				System.out.print("Altura? ");
-				final int x = teclado.nextInt();
-
-				System.out.print("Largura? ");
-				final int y = teclado.nextInt();
-
-				System.out.print("N  de bombas? ");
-				final int n_bombas = teclado.nextInt();
-
-				jogo = new Minesweeper(x,y,n_bombas);
-				break;
-			case 3:
-                                System.out.println("To be inplement");
-				return;
-			case 4:
-				return;
-			default:
-				System.out.println("Op  o Inv lida.");
-			break;
-			}
-
-		}while(escolha > 4 || escolha < 1);
-
-                play(jogo);
+	public static void main(final String[] args) throws ConsoleInputException {
+            play(new MinesweeperCMD().generateGame(args));
 	}
 
     public static void play(Minesweeper jogo) {
