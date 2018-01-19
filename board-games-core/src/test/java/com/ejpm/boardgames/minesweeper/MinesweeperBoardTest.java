@@ -68,4 +68,9 @@ public class MinesweeperBoardTest {
         System.out.println(new MinesweeperConsoleBoardDisplay().getStringRepresentation(board, true));
         assertThat(board.getBombsArround(B1_COORDINATE), is(equalTo(1)));
     }
+
+    @Test
+    public void atStartBoardIsNotSolved() {
+        assertFalse(board.isSolved());
+    }
 }

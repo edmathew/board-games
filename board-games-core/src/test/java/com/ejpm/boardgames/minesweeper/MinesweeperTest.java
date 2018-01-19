@@ -119,5 +119,5 @@ public class MinesweeperTest {
         mines.markFlag(COORDINATE_C1_BOMB);
         assertThat(mines.getBoard().getPosition(COORDINATE_C1_BOMB.getLine(), COORDINATE_C1_BOMB.getColumn()), is(equalTo('B')));
     }
-
+    
 }

@@ -149,4 +149,14 @@ public class MinesweeperBoard extends Board {
 
         return bombs;
     }
+
+    public boolean isSolved() {
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if(isHidden(new Coordinate(i, j)))
+                    return false;
+            }
+        }
+        return true;
+    }
 }

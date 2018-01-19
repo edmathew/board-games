@@ -139,35 +139,6 @@ public class Minesweeper {
 	}
 
 
-	/**
-	 * 
-	 * Devolve o numero de bombas em volta de uma coordenada
-	 * 
-	 * @pre tabuleiro[x][y] != BOMBA && dentroDoTabuleiro(coordenada_dada);
-	 * @post cumpreInvariante();
-	 */
-	public int nBombas(final int x, final int y) {
-		int n_bombas = 0;
-
-		for(int a = x-1; (a<=(x+1))&& a <=tabuleiro.length; a++){
-			for(int b = y-1; (b<=(y+1))&& b <= tabuleiro[1].length; b++){
-
-				if(dentroDoTabuleiro(new Coordenada (a,b))){
-
-					if(tabuleiro [a][b] == BOMBA || tabuleiro[a][b]== BANDEIRA_E_BOMBA)
-						n_bombas = n_bombas +1;
-				}
-			}
-		}
-
-		return n_bombas;
-
-	}
-
-	/**
-	 * Verifica se o jogo j  acabou
-	 * 
-	 */
 	public boolean jogoTerminado(final Coordenada coordenada) {
 		if(board.isBomb(new Coordinate(coordenada.getLinha(), coordenada.getColuna()))){
 			return true;
